@@ -4,9 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Hệ thống Thi & Ôn luyện Trắc nghiệm</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/mhchem.min.js"></script>
+
+<!-- Tích hợp MathJax thay thế KaTeX -->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['\\(', '\\)']],
+      displayMath: [['$$', '$$']],
+      packages: {'[+]': ['mhchem']}
+    },
+    startup: { typeset: false } // Tắt tự động render lúc tải trang để render thủ công
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 <style>
@@ -265,7 +276,7 @@ main{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env
         <label class="btn" for="file">📂 Tải file Word đề gốc (.docx)</label>
         <input type="file" id="file" accept=".docx" hidden>
         <button class="btn sec" id="lx">⬆️ Xuất thư viện (exams.json)</button>
-        <label class="btn sec" for="li">⬇️ Nhập thư viện</label>
+        <label class="btn sec" for="li">⬇️️ Nhập thư viện</label>
         <input type="file" id="li" accept=".json" hidden>
       </div>
       <p class="note"><b>Quy trình thi trực tuyến:</b><br>1. Tải đề lên &rarr; 2. Chọn Cài đặt &rarr; 3. Xuất file exams.json và tải lên Github đè vào file cũ &rarr; 4. Gửi Link thi.</p>
@@ -759,11 +770,13 @@ $('file').onchange = async e => {
 
 // ================= RENDER UTILS =================
 const TK=/⟪(\d+)⟫|⟦(\d+)⟧|\$\$([\s\S]+?)\$\$|\\\(([\s\S]+?)\\\)|\\\[([\s\S]+?)\\\]|\$([^\s$](?:[^$\n]*?[^\s$])?)\$/g;
+
+// HÀM XỬ LÝ CÔNG THỨC MỚI VỚI MATHJAX
 function kx(l,d){
   if(!l||!l.trim())return'<span style="color:red">[công thức]</span>';
-  try{if(window.katex)return katex.renderToString(l,{throwOnError:false,displayMode:!!d,strict:'ignore'})}catch(e){}
-  return'<code>'+esc(l)+'</code>';
+  return d ? `$$${l}$$` : `\\(${l}\\)`; 
 }
+
 const imH=k=>{const m=(exam.img||[])[k];return!m?'':m.bad?'<span style="color:red">[Hình MathType lỗi]</span>':`<img class="im" src="${esc(m.d)}" alt="">`};
 function seg(t){
   let o='',i=0;
@@ -864,6 +877,9 @@ function renderTeacherPreview() {
     const en = $('exam-scale').value === 'english';$('q-note').textContent = en ? '(Tiếng Anh: câu hỏi trong mỗi nhóm in đậm luôn giữ nguyên thứ tự)' : '';
     $('chk-shuf-q').disabled = en;
     $('list-teacher').innerHTML = '<div class="note" style="margin-bottom:20px;text-align:center">Đây là chế độ xem trước cấu trúc đề (Không tương tác được). Học sinh sẽ thấy giao diện đảo đề ngẫu nhiên.</div>' + renderBlocks(cur, en, teacherQHtml);
+    
+    // YÊU CẦU MATHJAX RENDER CÔNG THỨC
+    if (window.MathJax) MathJax.typesetPromise([$('list-teacher')]).catch(err => console.log(err));
 }
 $('exam-scale').onchange = renderTeacherPreview;
 
@@ -1040,6 +1056,9 @@ function renderStudentExam() {
         }
     });
     $('q-grid').innerHTML = html;
+    
+    // YÊU CẦU MATHJAX RENDER CÔNG THỨC CHO MÀN HỌC SINH
+    if (window.MathJax) MathJax.typesetPromise([$('list-student')]).catch(err => console.log(err));
 }
 
 function generateStudentQuestionHTML(q, i, n) {
