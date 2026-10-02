@@ -20,6 +20,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <style>
 :root{--pri:#2563eb;--pri2:#1d4ed8;--ok:#16a34a;--okbg:#dcfce7;--bad:#dc2626;--badbg:#fee2e2;--bg:#f8fafc;--tx:#1e293b;--mut:#64748b;--bd:#cbd5e1;--hh:170px; --card:#ffffff;}
 *{box-sizing:border-box}
@@ -273,8 +274,8 @@ main{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env
   <main>
     <div class="card">
       <div class="bar">
-        <label class="btn" for="file">📂 Tải file Word đề gốc (.docx)</label>
-        <input type="file" id="file" accept=".docx" hidden>
+        <label class="btn" for="file">📂 Tải file đề gốc (.docx hoặc .pdf)</label>
+        <input type="file" id="file" accept=".docx,.pdf,application/pdf" hidden>
         <button class="btn sec" id="lx">⬆️ Xuất thư viện (exams.json)</button>
         <label class="btn sec" for="li">⬇️️ Nhập thư viện</label>
         <input type="file" id="li" accept=".json" hidden>
@@ -741,17 +742,92 @@ function parse(T,F){
   return out;
 }
 
+// ================= NHẬN DIỆN PDF =================
+// Đọc PDF → trả về cùng dạng {T,F,IM} như flatten() để dùng lại parse().
+// F: bit1 = gạch chân (nét ngang mảnh ngay dưới chữ), bit2 = in đậm, bit4 = in nghiêng (theo tên font).
+async function pdfFlat(ab){
+  if(!window.pdfjsLib) throw new Error('Chưa tải được thư viện đọc PDF (kiểm tra kết nối mạng).');
+  pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  const pdf=await pdfjsLib.getDocument({data:new Uint8Array(ab)}).promise,O=pdfjsLib.OPS;
+  const NA={[O.moveTo]:2,[O.lineTo]:2,[O.curveTo]:6,[O.curveTo2]:4,[O.curveTo3]:4,[O.closePath]:0,[O.rectangle]:4};
+  const pages=[];
+  for(let p=1;p<=pdf.numPages;p++){
+    const pg=await pdf.getPage(p),[,vy0,,vy1]=pg.view,H=(vy1-vy0)||1;
+    // 1) Gom các đoạn ngang mảnh (nét gạch chân) từ lệnh vẽ của trang
+    const ol=await pg.getOperatorList(),U=[],st=[];let c=[1,0,0,1,0,0];
+    const tf=(x,y)=>[c[0]*x+c[2]*y+c[4],c[1]*x+c[3]*y+c[5]];
+    const seg=(a,b)=>{if(Math.abs(a[1]-b[1])<2.5&&Math.abs(a[0]-b[0])>=2)U.push({x0:Math.min(a[0],b[0]),x1:Math.max(a[0],b[0]),y:(a[1]+b[1])/2})};
+    ol.fnArray.forEach((fn,i)=>{
+      const a=ol.argsArray[i];
+      if(fn===O.save)st.push(c);
+      else if(fn===O.restore){if(st.length)c=st.pop()}
+      else if(fn===O.transform)c=[c[0]*a[0]+c[2]*a[1],c[1]*a[0]+c[3]*a[1],c[0]*a[2]+c[2]*a[3],c[1]*a[2]+c[3]*a[3],c[0]*a[4]+c[2]*a[5]+c[4],c[1]*a[4]+c[3]*a[5]+c[5]];
+      else if(fn===O.constructPath){
+        let k=0,cur=null;
+        a[0].forEach(op=>{
+          const n=NA[op]??0,v=a[1].slice(k,k+n);k+=n;
+          if(op===O.rectangle)seg(tf(v[0],v[1]),tf(v[0]+v[2],v[1]+v[3]));
+          else if(op===O.moveTo)cur=tf(v[0],v[1]);
+          else if(op===O.lineTo){const q=tf(v[0],v[1]);if(cur)seg(cur,q);cur=q}
+        });
+      }
+    });
+    // 2) Chữ: đậm/nghiêng theo tên font, ghép các mẩu chữ thành dòng
+    const tc=await pg.getTextContent(),fm={};
+    const fnt=n=>fm[n]??(fm[n]=(()=>{let o={};try{o=pg.commonObjs.get(n)||{}}catch(e){}
+      const s=(o.name||'')+' '+(tc.styles[n]?.fontFamily||'');
+      return((o.bold||/bold|black|heavy|semibold|demi|[-,]bd\b/i.test(s))?2:0)|((o.italic||/italic|oblique|[-,]it\b/i.test(s))?4:0)})());
+    const lines=[];let L=null;
+    for(const t of tc.items){
+      if(!t.str)continue;
+      const s=t.str.normalize('NFC'),x=t.transform[4],y=t.transform[5],fs=Math.hypot(t.transform[2],t.transform[3])||10,fl=fnt(t.fontName);
+      const ul=px=>+U.some(g=>px>=g.x0-.5&&px<=g.x1+.5&&g.y<=y+.05*fs&&g.y>=y-.35*fs);
+      if(!L||Math.abs(y-L.y)>.5*Math.min(fs,L.fs)||x<L.end-3*fs){L={y,fs,end:x,s:'',F:[],r:(y-vy0)/H,p};lines.push(L)}
+      if(L.s&&x-L.end>.15*fs&&!/\s$/.test(L.s)&&!/^\s/.test(s)){L.s+=' ';L.F.push(ul((L.end+x)/2))}
+      for(let k=0;k<s.length;k++){L.s+=s[k];L.F.push(fl|ul(x+t.width*(k+.5)/s.length))}
+      L.end=x+t.width;L.fs=fs;
+    }
+    pages.push(lines);
+  }
+  // 3) Bỏ đầu trang/chân trang (lặp lại ở lề trên/dưới, số trang)
+  const key=l=>l.s.trim().replace(/\d+/g,'#'),edge=l=>l.r<.07||l.r>.93,cnt={};
+  pages.forEach(P=>P.forEach(l=>{if(edge(l))cnt[key(l)]=(cnt[key(l)]||0)+1}));
+  const need=Math.max(2,Math.ceil(pdf.numPages/2)),kept=[];
+  pages.forEach(P=>P.forEach(l=>{
+    const k=key(l);
+    if(edge(l)&&((pdf.numPages>1&&cnt[k]>=need)||/^(trang|page)?\s*#\s*(\/\s*#)?$/i.test(k)))return;
+    kept.push(l);
+  }));
+  // 4) Nối các dòng bị ngắt do xuống dòng tự động (trừ dòng mở đầu Câu / A. B. C. D. / ĐÁP ÁN)
+  const hard=s=>/^\s*(câu|question|đáp án)\b|^\s*[A-Da-d]\s*[.)]/i.test(s);
+  const bold=l=>{let n=0,b=0;l.F.forEach((f,i)=>{if(/\S/.test(l.s[i])){n++;if(f&2)b++}});return n>0&&b===n};
+  const out=[];
+  kept.forEach(l=>{
+    const q=out[out.length-1];
+    if(q&&q.p===l.p&&!hard(l.s)&&q.y-l.y>0&&q.y-l.y<1.7*l.fs&&bold(q)===bold(l)){q.s+=' '+l.s;q.F.push(0,...l.F);q.y=l.y;q.fs=l.fs}
+    else out.push(l);
+  });
+  let T='',F=[];
+  out.forEach(l=>{T+=l.s+'\n';F.push(...l.F,0)});
+  if(T.replace(/\s/g,'').length<20*pdf.numPages) throw new Error('PDF này là bản scan/ảnh, không có lớp chữ để đọc. Hãy dùng PDF xuất trực tiếp từ Word, hoặc tải file .docx.');
+  return{T,F,IM:[]};
+}
+
 $('file').onchange = async e => {
   const f=e.target.files[0]; if(!f) return;
   try{
-    const {buf,eq}=await pre(await f.arrayBuffer());
-    const r=await mammoth.convertToHtml({arrayBuffer:buf},{styleMap:['u => u']});
-    const {T,F,IM}=flatten(r.value),items=parse(T,F),qs=items.filter(x=>x.k==='q');
-    if(!qs.length){alert('Không nhận diện được câu hỏi nào.'); return}
+    const ab=await f.arrayBuffer();
+    // Nhận diện định dạng theo nội dung file (không phụ thuộc đuôi file): bắt đầu bằng %PDF = PDF, còn lại coi là Word
+    const isPdf=new TextDecoder().decode(new Uint8Array(ab,0,5)).startsWith('%PDF');
+    let T,F,IM,eq=[];
+    if(isPdf)({T,F,IM}=await pdfFlat(ab));
+    else{const w=await pre(ab);eq=w.eq;const r=await mammoth.convertToHtml({arrayBuffer:w.buf},{styleMap:['u => u']});({T,F,IM}=flatten(r.value))}
+    const items=parse(T,F),qs=items.filter(x=>x.k==='q');
+    if(!qs.length){alert('Không nhận diện được câu hỏi nào.'+(isPdf?'\nKiểm tra PDF có chữ chọn được và câu hỏi bắt đầu bằng "Câu 1", "Câu 2"...':'')); return}
     await Promise.all(IM.map(prep));
     
     const ex={
-        id:'e'+Date.now(), name:f.name.replace(/\.docx$/i,''), at:Date.now(), 
+        id:'e'+Date.now(), name:f.name.replace(/\.(docx|pdf)$/i,''), at:Date.now(), 
         items, eq, img:IM, time:0, scale:'other', openAt:0, closeAt:0,
         shufGrp: false, shufQ: true, shufOpt: true
     };
@@ -762,6 +838,7 @@ $('file').onchange = async e => {
     
     const miss=qs.filter(q=> q.qtype==='mc' && !q.opts.some(o=>o.ok)).length;
     let msg = miss ? `Đã đọc ${qs.length} câu. Có ${miss} câu chưa gạch chân đáp án.` : `Đã tải thành công ${qs.length} câu.`;
+    if(isPdf) msg += `\n(PDF: đáp án được nhận diện qua nét gạch chân dưới chữ; hình ảnh và công thức trong PDF không được nhập.)`;
     if(parseSkipped) msg += `\n⚠ Có ${parseSkipped} câu không tìm đủ 4 phương án A–D nên đã bị bỏ qua (kiểm tra lại file Word).`;
     alert(msg);
   }catch(err){alert('Lỗi đọc file: '+err.message)}
