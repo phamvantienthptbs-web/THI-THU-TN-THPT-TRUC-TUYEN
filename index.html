@@ -1,1367 +1,1325 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hệ Thống Đảo Đề Thi Chuyên Nghiệp - Toán 2026</title>
-    
-    <!-- TÍCH HỢP MATHJAX 3: HỖ TRỢ ĐỌC CÔNG THỨC TOÁN HỌC -->
-    <script>
-    window.MathJax = {
-      tex: { inlineMath: [['\\(', '\\)'], ['$', '$']], displayMath: [['\\[', '\\]'], ['$$', '$$']], processEscapes: true },
-      options: { ignoreHtmlClass: 'tex2jax_ignore', processHtmlClass: 'tex2jax_process' },
-      startup: { typeset: false } // Đặt false, sẽ kích hoạt gọi typesetPromise() bằng hàm JS khi cần hiển thị
-    };
-    </script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <!-- KẾT THÚC TÍCH HỢP TOÁN HỌC -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hệ thống Thi & Ôn luyện Trắc nghiệm</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/mhchem.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+<style>
+:root{--pri:#2563eb;--pri2:#1d4ed8;--ok:#16a34a;--okbg:#dcfce7;--bad:#dc2626;--badbg:#fee2e2;--bg:#f8fafc;--tx:#1e293b;--mut:#64748b;--bd:#cbd5e1;--hh:170px; --card:#ffffff;}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--tx);line-height:1.6}
+.hide{display:none!important}
+.center-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,var(--pri),#8b5cf6)}
+.box{background:var(--card);border-radius:16px;padding:32px;width:100%;max-width:440px;text-align:center;box-shadow:0 10px 40px rgba(0,0,0,.2)}
+.box .ic{font-size:48px;margin-bottom:12px}
+.box h1{margin:0 0 8px;font-size:22px;color:#0f172a}
+.box p{margin:0 0 20px;color:var(--mut);font-size:15px}
+input[type=password],input[type=text],input[type=number],input[type=datetime-local],select{width:100%;padding:12px 16px;border:2px solid var(--bd);border-radius:10px;font-size:15px;outline:none;transition:.2s;margin-bottom:12px;font-family:inherit;}
+input[type=checkbox]{width:18px;height:18px;accent-color:var(--pri);cursor:pointer;}
+input:focus,textarea:focus,select:focus{border-color:var(--pri);box-shadow:0 0 0 4px rgba(37,99,235,.15)}
+.err{color:var(--bad);font-size:14px;margin-bottom:12px;min-height:20px}
+.btn{display:inline-block;border:0;border-radius:10px;padding:10px 18px;font-weight:600;font-size:15px;font-family:inherit;cursor:pointer;background:var(--pri);color:#fff;transition:.2s;text-align:center}
+.btn:hover:not(:disabled){background:var(--pri2);transform:translateY(-1px)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn.sec{background:#fff;color:var(--pri);border:2px solid var(--pri)}
+.btn.sec:hover:not(:disabled){background:#eff6ff}
+.btn.gr{background:#16a34a;color:#fff;border:none}
+.btn.gr:hover:not(:disabled){background:#15803d}
+.box .btn{width:100%;padding:12px}
+header{position:sticky;top:0;z-index:10;background:var(--card);box-shadow:0 1px 10px rgba(0,0,0,.08);padding:12px 20px;display:flex;justify-content:space-between;align-items:center}
+.hdr-title{font-size:18px;font-weight:700;margin:0}
+.bar{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.info{font-size:14px;color:var(--mut)}
+main{max-width:1240px;margin:24px auto;padding:0 16px 40px}
+.card{background:var(--card);border-radius:12px;padding:20px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,.04);border:1px solid var(--bd)}
+.card summary{font-weight:700;cursor:pointer;font-size:16px}
+.lr{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--bd)}
+.lr:last-child{border:0}
+.lr-info{display:flex;align-items:center;gap:12px}
+.no{flex:none;width:32px;height:32px;border-radius:50%;background:#eff6ff;color:var(--pri);display:grid;place-items:center;font-weight:700;font-size:14px}
+.tg{background:#fef3c7;color:#92400e;font-size:12px;padding:2px 8px;border-radius:6px;margin-left:6px}
+.note{font-size:13px;color:var(--mut);margin-top:12px}
+textarea{width:100%;padding:12px;border:2px solid var(--bd);border-radius:10px;font:inherit;outline:none;resize:vertical}
+.q{background:var(--card);border-radius:12px;padding:24px;margin-bottom:20px;box-shadow:0 2px 10px rgba(0,0,0,.05);border:1px solid var(--bd)}
+.qh{font-weight:700;color:var(--pri);margin-bottom:12px;font-size:16px;display:flex;justify-content:space-between}
+.st{font-size:16px;margin-bottom:16px}
+.os{display:grid;gap:12px}
+.o{display:flex;gap:12px;align-items:center;padding:12px 16px;border:2px solid var(--bd);border-radius:10px;background:var(--card);cursor:pointer;transition:.2s}
+.o:hover:not(.disabled){border-color:var(--pri);background:#eff6ff}
+.o .l{flex:none;width:28px;height:28px;border-radius:50%;background:#f1f5f9;color:var(--mut);display:grid;place-items:center;font-weight:600}
+.o.selected{border-color:var(--pri);background:#eff6ff}
+.o.selected .l{background:var(--pri);color:#fff}
+.o.ok{border-color:var(--ok);background:var(--okbg)}.o.ok .l{background:var(--ok);color:#fff}
+.o.bad{border-color:var(--bad);background:var(--badbg)}.o.bad .l{background:var(--bad);color:#fff}
+.o.disabled{cursor:default}
+.fb{margin-top:12px;font-weight:600;padding:10px;border-radius:8px;background:#f8fafc}
+.fb.good{color:var(--ok);background:var(--okbg)}.fb.no{color:var(--bad);background:var(--badbg)}
+img.im{max-width:100%;height:auto;border-radius:8px;margin:8px 0}
+.timer-box{background:#fff;padding:6px 16px;border-radius:30px;font-weight:700;font-size:18px;color:var(--pri);border:2px solid #fff;display:flex;align-items:center;gap:8px}
+.timer-box.danger{color:var(--bad);border-color:var(--bad);animation:pulse 1s infinite}
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
+.sa-input{width:100%;max-width:400px;font-weight:600;color:var(--pri)}
+.tf-row{display:flex;justify-content:space-between;cursor:default!important;background:transparent!important;border:none!important;padding:0!important}
+.tf-row:hover{background:transparent!important;border-color:transparent!important}
+.tf-btn{flex:1;text-align:center;padding:8px}
+.tf-btn.selected{background:var(--pri);color:#fff}
+.btn.sec.tf-btn.selected,.btn.sec.tf-btn.selected:hover:not(:disabled){background:var(--pri);color:#fff}
+.student-hdr{background:var(--pri);color:#fff;padding:15px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:20;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+#student-info-bar{font-size:14px;opacity:0.9}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;z-index:50}
+.score-result{background:#f8fafc;border-radius:8px;padding:16px;margin-top:16px;text-align:left;border:1px solid var(--bd)}
+.grp{margin-bottom:24px}
+.grp.two{display:grid;grid-template-columns:minmax(260px,2fr) 3fr;gap:20px;align-items:start}
+.gl{position:sticky;top:96px;max-height:calc(100vh - 116px);overflow:auto;background:#fffbeb;border:1px solid #fde68a;border-left:5px solid #f59e0b;border-radius:12px;padding:16px}
+.grp.two.en{grid-template-columns:minmax(0,2fr) minmax(280px,1fr)}
+.st{white-space:pre-line}
+.gl .st:last-child{margin-bottom:0}
+.gr .q:last-child{margin-bottom:0}
+.gr .q{margin-bottom:14px}
+@media(max-width:820px){.grp.two{grid-template-columns:1fr}.gl{position:static;max-height:none}}
+.sch-box{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;margin-top:15px;background:#f8fafc;padding:15px;border-radius:10px;border:1px solid var(--bd)}
+.sch-box label{display:block;font-weight:600;font-size:14px;margin-bottom:4px}
+.sch-box input[type=datetime-local]{width:230px;margin:0}
+.sch-state{margin:0 0 16px;padding:12px 14px;border-radius:10px;font-size:14px;line-height:1.7;text-align:left;border:1px solid var(--bd);background:#f8fafc;color:var(--tx)}
+.sch-state.wait{background:#fef3c7;border-color:#fde68a;color:#92400e}
+.sch-state.open{background:var(--okbg);border-color:#86efac;color:#166534}
+.sch-state.closed{background:var(--badbg);border-color:#fca5a5;color:#991b1b}
+.sch-count{display:block;font-size:26px;font-weight:800;text-align:center;margin-top:4px;font-variant-numeric:tabular-nums}
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08);
-        }
-        .gradient-text {
-            background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .toggle-checkbox:checked { right: 0; border-color: #3b82f6; }
-        .toggle-checkbox:checked + .toggle-label { background-color: #3b82f6; }
-        .toggle-checkbox:checked + .toggle-label + .toggle-dot { transform: translateX(100%); }
-        #cb-shuffle-parts:checked + .toggle-label + .toggle-dot { transform: translateX(100%); }
-        
-        .custom-scroll::-webkit-scrollbar { width: 6px; }
-        .custom-scroll::-webkit-scrollbar-track { background: transparent; }
-        .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        .custom-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-        
-        .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+/* ================= XOAY NGANG ĐIỆN THOẠI (LANDSCAPE) ================= */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+@supports(height:100dvh){.center-screen{min-height:100dvh}}
+/* Chừa vùng tai thỏ / thanh điều hướng ở hai cạnh khi xoay ngang */
+.student-hdr,header{padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right))}
+main{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
+.student-hdr{flex-wrap:wrap;gap:8px}
+/* Giao diện đọc hiểu tiếng Anh: màn hình dọc hẹp thì xếp 1 cột */
+@media(max-width:820px){.grp.two.en{grid-template-columns:1fr}}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translateX(-50%);max-width:min(92vw,460px);background:#0f172a;color:#fff;padding:10px 16px;border-radius:10px;font-size:14px;line-height:1.5;z-index:100;box-shadow:0 6px 24px rgba(0,0,0,.3);text-align:center}
+/* Điện thoại xoay ngang: gọn header, đoạn văn bên trái - câu hỏi bên phải */
+@media (orientation:landscape) and (max-height:520px){
+  :root{--hh:60px}
+  .center-screen{padding:10px calc(10px + env(safe-area-inset-right)) 10px calc(10px + env(safe-area-inset-left))}
+  .box{padding:16px 22px;max-width:520px}
+  .box .ic{font-size:30px;margin-bottom:4px}
+  .box h1{font-size:18px;margin-bottom:4px}
+  .box p{margin-bottom:10px;font-size:14px}
+  input[type=password],input[type=text],input[type=number],input[type=datetime-local],select{padding:8px 12px;margin-bottom:8px}
+  .btn{padding:7px 12px;font-size:14px}
+  .box .btn{padding:9px}
+  .student-hdr,header{padding-top:6px;padding-bottom:6px}
+  .hdr-title{font-size:15px;line-height:1.3}
+  #student-info-bar{font-size:12px;line-height:1.3}
+  .timer-box{font-size:15px;padding:3px 12px}
+  main{margin:10px auto;padding-bottom:24px}
+  .grp{margin-bottom:14px}
+  .q{padding:14px 16px;margin-bottom:12px}
+  .qh{margin-bottom:6px;font-size:15px}
+  .st{font-size:15px;margin-bottom:10px}
+  .os{gap:8px}
+  .o{padding:8px 12px}
+  .grp.two{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+  .grp.two.en{grid-template-columns:minmax(0,3fr) minmax(0,2fr)}
+  .gl{position:sticky;top:var(--hh);max-height:calc(100vh - var(--hh) - 12px);padding:12px}
+  .overlay .box{max-height:94vh;overflow:auto}
+}
+@supports(height:100dvh){@media (orientation:landscape) and (max-height:520px){.gl{max-height:calc(100dvh - var(--hh) - 12px)}}}
 
-        /* Nền họa tiết */
-        .bg-blobs {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; overflow: hidden; background: #f8fafc;
-        }
-        .blob-1 { position: absolute; top: -10%; left: -10%; width: 50vw; height: 50vw; border-radius: 50%; background: radial-gradient(circle, rgba(199,210,254,0.6) 0%, rgba(255,255,255,0) 70%); }
-        .blob-2 { position: absolute; bottom: -20%; right: -10%; width: 60vw; height: 60vw; border-radius: 50%; background: radial-gradient(circle, rgba(165,243,252,0.5) 0%, rgba(255,255,255,0) 70%); }
-    </style>
+/* Layout cho màn hình làm bài của học sinh */
+.student-main {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  max-width: 1240px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+/* Bảng danh sách câu hỏi bên trái */
+.q-panel {
+  position: sticky;
+  top: 80px;
+  width: 250px;
+  flex: none;
+  background: var(--card);
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid var(--bd);
+  box-shadow: 0 2px 8px rgba(0,0,0,.04);
+}
+
+.student-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.q-panel-title {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--pri);
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.q-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+  max-height: calc(100vh - 220px);
+  overflow-y: auto;
+}
+
+.q-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid var(--bd);
+  background: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  color: var(--tx);
+  transition: .2s;
+  font-size: 14px;
+}
+
+/* Các trạng thái của nút câu hỏi */
+.q-btn:hover { background: #f1f5f9; }
+.q-btn.done { background: #eff6ff; border-color: var(--pri); color: var(--pri); } /* Đã làm (chưa nộp) */
+.q-btn.right { background: var(--okbg); border-color: var(--ok); color: var(--ok); } /* Làm đúng */
+.q-btn.wrong { background: var(--badbg); border-color: var(--bad); color: var(--bad); } /* Làm sai */
+
+.q-legend {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--mut);
+}
+
+.q-legend div { display: flex; align-items: center; gap: 6px; }
+.box-leg { width: 14px; height: 14px; border-radius: 4px; border: 1px solid var(--bd); }
+.box-leg.none { background: #fff; }
+.box-leg.right { background: var(--okbg); border-color: var(--ok); }
+.box-leg.wrong { background: var(--badbg); border-color: var(--bad); }
+
+@media (max-width: 900px) {
+  .student-main { flex-direction: column; }
+  .q-panel { width: 100%; position: static; }
+  .q-grid { max-height: 200px; }
+}
+</style>
 </head>
-<body class="text-slate-800 min-h-screen relative">
-    
-    <div class="bg-blobs">
-        <div class="blob-1"></div>
-        <div class="blob-2"></div>
+<body>
+
+<!-- Giao diện Đăng nhập Giáo viên -->
+<div id="login" class="center-screen hide">
+  <form class="box" id="lf">
+    <div class="ic">👨‍🏫</div>
+    <h1>Quản lý Thi Trắc nghiệm</h1>
+    <p>Dành cho giáo viên quản trị</p>
+    <input type="password" id="pw" placeholder="Nhập mật khẩu" autocomplete="current-password" autofocus>
+    <div class="err" id="err"></div>
+    <button class="btn" type="submit">Đăng nhập</button>
+  </form>
+</div>
+
+<!-- Giao diện Khai báo Học sinh -->
+<div id="student-login" class="center-screen hide">
+  <form class="box" id="sf">
+    <div class="ic">🎓</div>
+    <h1 id="s-exam-name">Đang tải đề thi...</h1>
+    <p>Vui lòng nhập thông tin để bắt đầu làm bài</p>
+    <div id="s-schedule" class="sch-state hide"></div>
+    <input type="text" id="s-name" placeholder="Họ và tên học sinh" required>
+    <input type="text" id="s-class" placeholder="Lớp (Ví dụ: 12A1)" required>
+    <button class="btn gr" type="submit" id="btn-start-exam" disabled>Bắt đầu làm bài</button>
+  </form>
+</div>
+
+<!-- Màn hình chờ Nộp bài -->
+<div id="loading" class="overlay hide">
+  <div class="box" id="loading-box">
+    <div class="ic">⏳</div>
+    <h2>Đang gửi kết quả...</h2>
+    <p>Vui lòng không đóng trình duyệt.</p>
+  </div>
+</div>
+
+<!-- Giao diện Quản lý Giáo viên -->
+<div id="app-teacher" class="hide">
+  <header>
+    <h1 class="hdr-title">📝 Quản lý đề thi</h1>
+    <button class="btn sec" id="out">Đăng xuất</button>
+  </header>
+  <main>
+    <div class="card">
+      <div class="bar">
+        <label class="btn" for="file">📂 Tải file Word đề gốc (.docx)</label>
+        <input type="file" id="file" accept=".docx" hidden>
+        <button class="btn sec" id="lx">⬆️ Xuất thư viện (exams.json)</button>
+        <label class="btn sec" for="li">⬇️ Nhập thư viện</label>
+        <input type="file" id="li" accept=".json" hidden>
+      </div>
+      <p class="note"><b>Quy trình thi trực tuyến:</b><br>1. Tải đề lên &rarr; 2. Chọn Cài đặt &rarr; 3. Xuất file exams.json và tải lên Github đè vào file cũ &rarr; 4. Gửi Link thi.</p>
     </div>
 
-    <!-- Header -->
-    <header class="bg-white/70 backdrop-blur-md border-b border-white/50 shadow-sm sticky top-0 z-40">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <div class="bg-gradient-to-br from-indigo-500 to-cyan-500 p-2 rounded-xl text-white shadow-lg shadow-indigo-200">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
-                </div>
-                <div>
-                    <h1 class="text-2xl font-extrabold tracking-tight text-slate-800">Mixer<span class="gradient-text">Pro</span></h1>
-                    <p class="text-xs font-medium text-slate-500">Hệ thống đảo đề thi Tốt nghiệp THPT (Chuẩn 2026)</p>
-                </div>
-            </div>
-            <div id="system-status" class="flex items-center px-5 py-2 rounded-full bg-amber-50 border border-amber-200 text-amber-700 text-sm font-semibold shadow-sm transition-all duration-300">
-                <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-amber-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                Đang khởi tạo lõi xử lý...
-            </div>
-        </div>
-    </header>
+    <details id="libbox" class="card" open>
+      <summary id="lt">📚 Danh sách đề thi đã tạo</summary>
+      <div id="libl" style="margin-top:15px"></div>
+    </details>
 
-    <main class="max-w-7xl mx-auto px-6 py-8 relative z-10">
-        <!-- Notification Box -->
-        <div class="mb-6 bg-indigo-50 border-l-4 border-indigo-500 p-4 rounded-r-lg shadow-sm">
-            <h3 class="text-sm font-bold text-indigo-800 flex items-center">
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                Quy tắc nạp đáp án tự động
-            </h3>
-            <ul class="mt-2 text-[13px] text-indigo-700 list-disc list-inside space-y-1.5">
-                <li><b>Phần 1 (Trắc nghiệm 4 lựa chọn):</b> Bôi đen và <b><u>gạch chân (Underline)</u></b> nội dung của phương án đúng. Hệ thống sẽ ghi nhận và tự động xóa nét gạch chân này khi xuất đề.</li>
-                <li><b>Phần 2 (Đúng/Sai):</b> Gõ <b>Đ</b> hoặc <b>S</b> ở ngay đầu mỗi phương án (Ví dụ: <i>a) Đ. Hàm số đồng biến</i> hoặc <i>A. S Hàm số...</i>). Hệ thống sẽ tự lọc đáp án và ẩn chữ Đ/S này đi khi xuất đề.</li>
-                <li><b>Phần 3 (Trả lời ngắn):</b> Gõ <b>Đáp án: [Nội dung]</b> ở dòng dưới cùng của câu hỏi (trước khi sang câu mới). Hệ thống sẽ bóc tách cả công thức Toán học vào bảng đáp án và ẩn dòng này trong đề thi.</li>
-            </ul>
+    <div id="reqbox" class="card hide">
+      <div>
+        <b>⚙ Cài đặt đề thi: <span id="cur-exam-name" style="color:var(--pri)"></span></b>
+        
+        <!-- Nhóm Tùy chọn Chấm điểm & Thời gian -->
+        <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:12px;">
+          <input type="number" id="time-limit" placeholder="Phút (0 = tự do)" style="width:140px; margin:0">
+          <select id="exam-scale" class="btn sec" style="padding:10px; margin:0; width:auto; text-align:left;">
+              <option value="other">Thang điểm: Các môn chung (Lý, Hóa, Sinh, Sử, Địa...)</option>
+              <option value="math">Thang điểm: Môn Toán</option>
+              <option value="english">Thang điểm: Môn Tiếng Anh</option>
+          </select>
+          <button class="btn sec" id="btn-save-settings">Lưu cài đặt</button>
+          <button class="btn gr" id="btn-copy-link">🔗 Copy Link Thi</button>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            <!-- CỘT TRÁI (Nhập file & Cấu hình xuất) -->
-            <div class="lg:col-span-4 space-y-6">
-                <!-- BƯỚC 1: TẢI ĐỀ -->
-                <div class="glass-card rounded-2xl p-6">
-                    <div class="flex items-center mb-5">
-                        <span class="bg-indigo-100 text-indigo-700 w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm mr-3 shadow-inner">1</span>
-                        <h2 class="text-lg font-bold text-slate-800">Nạp Đề Gốc (.docx)</h2>
-                    </div>
-                    
-                    <div class="group border-2 border-dashed border-indigo-200 bg-indigo-50/50 hover:bg-indigo-50 hover:border-indigo-400 rounded-xl p-8 text-center transition-all duration-300 relative cursor-pointer">
-                        <input type="file" id="docx-file" accept=".docx" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" onchange="handleFileSelect(this)">
-                        <div class="bg-white w-14 h-14 mx-auto rounded-full flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-300 mb-3 text-indigo-500 group-hover:text-indigo-600">
-                            <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-                        </div>
-                        <p class="text-sm font-semibold text-slate-700" id="file-name-display">Kéo thả file Word vào đây</p>
-                        <p class="text-xs text-slate-500 mt-1">Hoặc click để duyệt file (.docx)</p>
-                    </div>
-                    
-                    <button id="btn-analyze" onclick="analyzeFile()" disabled class="mt-5 w-full bg-slate-800 text-white font-semibold py-3 rounded-xl shadow-lg shadow-slate-200 hover:bg-slate-900 disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none transition-all flex justify-center items-center">
-                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
-                        Phân Tích Đề
-                    </button>
-                </div>
-
-                <!-- BƯỚC 3: XUẤT FILE -->
-                <div id="step3" class="glass-card rounded-2xl p-6 opacity-40 pointer-events-none transition-all duration-500 transform translate-y-4">
-                    <div class="flex items-center mb-5">
-                        <span class="bg-cyan-100 text-cyan-700 w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm mr-3 shadow-inner">3</span>
-                        <h2 class="text-lg font-bold text-slate-800">Cấu Hình Xuất File</h2>
-                    </div>
-                    
-                    <div class="space-y-5 bg-slate-50/50 p-4 rounded-xl border border-slate-100">
-                        <div class="flex items-center justify-between">
-                            <label class="text-sm font-semibold text-slate-700">Số lượng mã đề:</label>
-                            <input type="number" id="num-made" value="4" min="1" max="50" class="border border-slate-200 rounded-lg p-2 w-20 text-center font-semibold text-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all shadow-sm">
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <label class="text-sm font-semibold text-slate-700">Mã đề bắt đầu:</label>
-                            <input type="number" id="start-code" value="101" class="border border-slate-200 rounded-lg p-2 w-20 text-center font-semibold text-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all shadow-sm">
-                        </div>
-                        
-                        <div class="pt-4 border-t border-slate-200">
-                            <label class="flex items-center justify-between cursor-pointer group">
-                                <span class="text-sm font-semibold text-slate-700 group-hover:text-indigo-600 transition-colors">Chèn dòng "Mã đề: ###"</span>
-                                <div class="relative">
-                                    <input type="checkbox" id="insert-header" checked class="sr-only toggle-checkbox">
-                                    <div class="block bg-slate-200 w-11 h-6 rounded-full toggle-label transition-colors duration-300"></div>
-                                    <div class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform duration-300 shadow-sm toggle-dot"></div>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <button id="btn-shuffle" onclick="shuffleAndExport()" class="mt-6 w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-indigo-200 hover:shadow-indigo-300 hover:from-blue-700 hover:to-indigo-700 transform hover:-translate-y-0.5 transition-all duration-200 flex justify-center items-center text-sm uppercase tracking-wider">
-                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                        Tạo Đề & Tải Xuống
-                    </button>
-                    
-                    <div class="mt-4 p-3 bg-blue-50 border border-blue-100 rounded-lg flex items-start gap-3">
-                        <svg class="w-5 h-5 text-blue-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        <p id="trial-status" class="text-xs text-blue-800 font-medium leading-relaxed">Đang tải trạng thái dùng thử...</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- CỘT PHẢI (Chi tiết cấu hình xáo trộn) -->
-            <div class="lg:col-span-8">
-                <div id="step2" class="glass-card rounded-2xl h-[calc(100vh-8rem)] flex flex-col opacity-40 pointer-events-none transition-all duration-500 transform translate-x-4">
-                    
-                    <div class="p-6 border-b border-slate-100 bg-white/50 rounded-t-2xl">
-                        <div class="flex items-center mb-4">
-                            <span class="bg-purple-100 text-purple-700 w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm mr-3 shadow-inner">2</span>
-                            <h2 class="text-lg font-bold text-slate-800">Cấu Hình Xáo Trộn Chi Tiết</h2>
-                        </div>
-                        
-                        <div class="flex flex-col p-4 bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-100 rounded-xl">
-                            <label class="flex items-center justify-between cursor-pointer group">
-                                <div>
-                                    <span class="font-extrabold text-indigo-900 text-sm tracking-wide">ĐẢO VỊ TRÍ CÁC KHỐI/PHẦN (TOÀN ĐỀ)</span>
-                                </div>
-                                <div class="relative">
-                                    <input type="checkbox" id="cb-shuffle-parts" checked class="sr-only toggle-checkbox">
-                                    <div class="block bg-slate-300 w-12 h-6 rounded-full toggle-label transition-colors duration-300"></div>
-                                    <div class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform duration-300 shadow-sm toggle-dot"></div>
-                                </div>
-                            </label>
-                            <p class="text-xs text-indigo-700/80 mt-2 font-medium">✓ Các khối cấu trúc lớn (Phần I, Phần II...) sẽ đổi chỗ ngẫu nhiên.<br>✓ Tự động đồng bộ đánh số thứ tự câu hỏi và khớp lệnh.</p>
-                        </div>
-                    </div>
-                    
-                    <div id="parts-container" class="p-6 overflow-y-auto custom-scroll flex-1 space-y-4">
-                        <!-- Empty State -->
-                        <div class="flex h-full items-center justify-center text-slate-400 flex-col space-y-4">
-                            <div class="bg-slate-100 p-6 rounded-full">
-                                <svg class="w-12 h-12 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
-                            </div>
-                            <p class="font-medium text-sm">Vui lòng nạp và phân tích đề gốc để hiển thị cấu trúc.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+        <!-- Nhóm Tùy chọn Đảo Đề -->
+        <div style="display:flex; flex-wrap:wrap; gap:20px; margin-top:15px; background:#f8fafc; padding:15px; border-radius:10px; border:1px solid var(--bd);">
+            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-weight:600;">
+                <input type="checkbox" id="chk-shuf-grp"> Đảo vị trí Nhóm/Phần (Đoạn văn)
+            </label>
+            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-weight:600;">
+                <input type="checkbox" id="chk-shuf-q"> Đảo vị trí Câu hỏi <small id="q-note" class="note" style="margin:0"></small>
+            </label>
+            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-weight:600;">
+                <input type="checkbox" id="chk-shuf-opt"> Đảo Đáp án (A, B, C, D)
+            </label>
         </div>
-    </main>
 
-    <!-- Modal Giới hạn dùng thử -->
-    <div id="trial-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4 transition-opacity">
-        <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md transform transition-all scale-100">
-            <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+        <!-- Nhóm Hạn thời gian mở / đóng đề -->
+        <div class="sch-box">
+            <div>
+                <label for="open-at">🟢 Giờ mở đề (bắt đầu)</label>
+                <input type="datetime-local" id="open-at">
             </div>
-            <h3 class="text-xl font-extrabold text-slate-800 text-center mb-2">Đã hết lượt dùng thử!</h3>
-            <p class="text-sm text-slate-600 text-center mb-6 leading-relaxed">
-                Bạn đã sử dụng hết lượt dùng thử miễn phí.<br>
-                Vui lòng liên hệ SĐT <strong class="text-indigo-600">0943930787</strong> để lấy mật khẩu, cấp thêm 10 lần dùng thử nữa.
-            </p>
-            
-            <div class="space-y-3">
-                <input type="password" id="trial-password-input" placeholder="Nhập mã kích hoạt (Mật khẩu)" class="w-full border border-slate-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all text-center tracking-wider">
-                <p id="trial-password-error" class="text-red-500 text-xs font-semibold text-center hidden">Mật khẩu không đúng. Vui lòng thử lại.</p>
+            <div>
+                <label for="close-at">🔴 Giờ đóng đề (kết thúc)</label>
+                <input type="datetime-local" id="close-at">
             </div>
-            
-            <div class="flex gap-3 mt-6">
-                <button id="trial-cancel-btn" class="flex-1 px-4 py-3 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 text-sm font-bold transition-colors">Hủy Bỏ</button>
-                <button id="trial-confirm-btn" class="flex-1 px-4 py-3 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 shadow-lg shadow-indigo-200 text-sm font-bold transition-all">Mở Khóa</button>
-            </div>
+            <button class="btn sec" type="button" id="btn-clear-sch" style="margin-bottom:0">Bỏ hạn thời gian</button>
+            <div class="note" style="flex-basis:100%;margin:0">Để trống = không giới hạn. Học sinh chỉ vào làm được trong khoảng này, đến giờ đóng đề hệ thống tự nộp bài. Sau khi lưu nhớ xuất lại exams.json và tải lên Github.</div>
         </div>
+
+      </div>
     </div>
+    <div id="list-teacher"></div>
+  </main>
+</div>
 
-<!-- PYTHON CORE ENGINE -->
-<script type="text/plain" id="engine-py">
-import re
-import copy
-import random
-from docx import Document
-from docx.oxml.ns import qn
-from docx.text.run import Run as _DocxRun
-from docx.oxml import OxmlElement
+<!-- Giao diện Làm bài Học sinh -->
+<div id="app-student" class="hide">
+  <div class="student-hdr">
+    <div>
+      <h1 class="hdr-title" id="sh-exam-name">Tên bài thi</h1>
+      <div id="student-info-bar">Học sinh: - Lớp: </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:flex-end">
+      <div id="timer-display" class="timer-box hide">⏱ <span id="time-text">--:--</span></div>
+      <button class="btn sec hide" id="btn-rotate" type="button" style="background:#fff;color:var(--pri)">🔄 Xoay ngang</button>
+      <button class="btn sec" id="btn-submit-exam" style="background:#fff;color:var(--pri)">Nộp bài ngay</button>
+    </div>
+  </div>
 
-QUESTION_RE = re.compile(r'^\s*Câu\s+(\d+)\s*\.', re.IGNORECASE)
-PART_HEAD_RE = re.compile(r'^\s*PHẦN\s+[IVX\d]+', re.IGNORECASE)
-STMT_START_RE = re.compile(r'^\s*([abcd])\)\s')
-PART_RE = re.compile(r'PHẦN\s+([IVX123]+)', re.IGNORECASE)
-OPTION_START_RE = re.compile(r'^\s*([ABCD])\.\s')
-INLINE_OPTIONS_RE = re.compile(r'(?P<A>A\.\s.*?)(?=\t?\s*B\.\s)\t?\s*(?P<B>B\.\s.*?)(?=\t?\s*C\.\s)\t?\s*(?P<C>C\.\s.*?)(?=\t?\s*D\.\s)\t?\s*(?P<D>D\.\s.*)$', re.DOTALL)
-CIRCLED = {"A": "\u24B6", "B": "\u24B7", "C": "\u24B8", "D": "\u24B9"}
-
-# Mẫu nhận diện Đáp án Trả lời ngắn (Phần 3)
-ANS_RE = re.compile(r'^\s*(?:Đáp\s*án|ĐS|Kết\s*quả|ĐÁP\s*ÁN)\s*[:\.]', re.IGNORECASE)
-
-class _TableItem:
-    is_table = True
-    def __init__(self, tbl): self._p = tbl
-
-def get_para_elements(paragraph):
-    if getattr(paragraph, 'is_table', False): return [], ""
-    spans = []
-    pos = 0
-    full_text = ""
-    for child in paragraph._p:
-        tag = child.tag
-        if tag == qn('w:pPr'): continue
-        
-        if tag == qn('w:r'):
-            t = _DocxRun(child, paragraph).text or ""
-        else:
-            t = " " 
-            
-        length = len(t)
-        if length == 0:
-            t = "\u200B"
-            length = 1
-            
-        spans.append((pos, pos + length, child, t))
-        pos += length
-        full_text += t
-    return spans, full_text
-
-def para_text(paragraph): 
-    _, text = get_para_elements(paragraph)
-    return text
-
-def copy_rpr(new_run, source_run, strip_underline=False):
-    src_rpr = source_run.find(qn('w:rPr'))
-    if src_rpr is not None:
-        new_rpr = copy.deepcopy(src_rpr)
-        if strip_underline:
-            for u in list(new_rpr.findall(qn('w:u'))): new_rpr.remove(u)
-        old = new_run.find(qn('w:rPr'))
-        if old is not None: new_run.remove(old)
-        new_run.insert(0, new_rpr)
-
-def copy_ppr(new_paragraph, source_paragraph):
-    src_ppr = source_paragraph._p.find(qn('w:pPr'))
-    if src_ppr is not None:
-        new_ppr = copy.deepcopy(src_ppr)
-        old = new_paragraph._p.find(qn('w:pPr'))
-        if old is not None: new_paragraph._p.remove(old)
-        new_paragraph._p.insert(0, new_ppr)
-
-class ParaSpec:
-    __slots__ = ("source_paragraph", "segments", "table")
-    def __init__(self, source_paragraph, segments):
-        self.source_paragraph = source_paragraph
-        self.segments = segments
-        self.table = None
-
-class Option:
-    __slots__ = ("letter_orig", "segments", "is_correct", "tf_ans")
-    def __init__(self, letter_orig, segments, is_correct, tf_ans=None):
-        self.letter_orig = letter_orig
-        self.segments = segments
-        self.is_correct = is_correct
-        self.tf_ans = tf_ans
-
-class QuestionBlock:
-    __slots__ = ("id", "number", "stem_paragraphs", "options", "options_mode", "options_ppr_source", "options_ppr_source2", "short_answer_spec")
-    def __init__(self, qid, number):
-        self.id = qid
-        self.number = number
-        self.stem_paragraphs = []
-        self.options = []
-        self.options_mode = None
-        self.options_ppr_source = None
-        self.options_ppr_source2 = None
-        self.short_answer_spec = None
-
-def _seg_slice(spans, a, b, number_span=None):
-    segments = []
-    splits = {a, b}
-    if number_span:
-        splits.add(number_span[0])
-        splits.add(number_span[1])
-        
-    for s, e, el, t in spans:
-        if e <= a or s >= b: continue
-        
-        if el.tag == qn('w:r'):
-            local_splits = sorted(list(set(sp - s for sp in splits if s < sp < e)))
-            curr = 0
-            needs_slicing = len(local_splits) > 0 
-            for ls in local_splits + [len(t)]:
-                if curr == ls: continue
-                chunk_s = s + curr
-                chunk_e = s + ls
-                
-                if chunk_s >= b or chunk_e <= a: 
-                    curr = ls
-                    continue
-                    
-                is_num = number_span and (number_span[0] <= chunk_s < number_span[1])
-                sliced_t = t[curr:ls]
-                segments.append((el, sliced_t, needs_slicing, is_num))
-                curr = ls
-        else:
-            segments.append((el, t, False, False))
-            
-    return segments
-
-def _make_para_spec(paragraph, a=0, b=None, number_span=None):
-    if getattr(paragraph, 'is_table', False):
-        sp = ParaSpec(paragraph, []); sp.table = paragraph._p; return sp
-    spans, full_text = get_para_elements(paragraph)
-    if b is None: b = len(full_text)
-    segments = _seg_slice(spans, a, b, number_span)
-    return ParaSpec(paragraph, segments)
-
-# Thuật toán trích xuất Đ/S ở NGAY ĐẦU phương án lựa chọn
-def _extract_tf_answer_start(segments):
-    text = ""
-    for el, sliced_t, ns, is_num in segments:
-        if el.tag == qn('w:r'):
-            text += sliced_t
+  <main class="student-main">
+    <!-- Cột trái: Bảng câu hỏi -->
+    <aside class="q-panel" id="q-panel">
+       <div class="q-panel-title">Danh sách câu hỏi</div>
+       <div class="q-legend">
+          <div><span class="box-leg none"></span> Chưa làm</div>
+          <div><span class="box-leg right"></span> Làm đúng</div>
+          <div><span class="box-leg wrong"></span> Làm sai</div>
+       </div>
+       <div id="q-grid" class="q-grid"></div>
+    </aside>
     
-    # Nhận diện Đ hoặc S ở ngay đầu phương án (sau ký tự A. b) ...)
-    m = re.match(r'^(\s*(?:[A-Dabcd][\.\)]\s*)*)([ĐSđs])([\.\s:]+|$)', text)
-    if not m:
-        return segments, None
-        
-    tf_ans = m.group(2).upper()
-    
-    start_remove = len(m.group(1))
-    len_remove = len(m.group(2)) + len(m.group(3))
-    
-    new_segments = []
-    current_pos = 0
-    
-    for el, sliced_t, ns, is_num in segments:
-        if el.tag == qn('w:r'):
-            l = len(sliced_t)
-            if current_pos >= start_remove + len_remove:
-                new_segments.append((el, sliced_t, ns, is_num))
-            elif current_pos + l <= start_remove:
-                new_segments.append((el, sliced_t, ns, is_num))
-            else:
-                keep_left = max(0, start_remove - current_pos)
-                end_remove = start_remove + len_remove
-                keep_right_start = max(0, end_remove - current_pos)
-                
-                new_t = sliced_t[:keep_left] + sliced_t[keep_right_start:]
-                new_segments.append((el, new_t, True, is_num))
-            current_pos += l
-        else:
-            new_segments.append((el, sliced_t, ns, is_num))
-            
-    return new_segments, tf_ans
+    <!-- Cột phải: Nội dung bài thi -->
+    <div id="list-student" class="student-content"></div>
+  </main>
+</div>
 
-def _mark_option_correctness(segments):
-    if not segments: return segments, False, None
-    is_correct = False
-    for el, sliced_t, needs_slicing, is_num in segments:
-        if el.tag == qn('w:r'):
-            rpr = el.find(qn('w:rPr'))
-            if rpr is not None:
-                u = rpr.find(qn('w:u'))
-                if u is not None and u.get(qn('w:val')) not in (None, 'none', '0', 'false'):
-                    is_correct = True
-                    break
-    
-    new_segments, tf_ans = _extract_tf_answer_start(segments)
-    return new_segments, is_correct, tf_ans
-
-def _extract_inline_options(paragraph, options_text_start):
-    spans, full_text = get_para_elements(paragraph)
-    sub = full_text[options_text_start:]
-    m = INLINE_OPTIONS_RE.search(sub)
-    if not m: return None, None
-    options = []
-    for letter in "ABCD":
-        abs_start = options_text_start + m.start(letter)
-        abs_end = options_text_start + m.end(letter)
-        segs = _seg_slice(spans, abs_start, abs_end)
-        segs, is_correct, tf_ans = _mark_option_correctness(segs)
-        options.append(Option(letter, segs, is_correct, tf_ans))
-    stem_end_abs = options_text_start + m.start('A')
-    return options, stem_end_abs
-
-def _extract_pair(paragraph, la, lb):
-    spans, full_text = get_para_elements(paragraph)
-    m = re.search(r'(?P<X>%s\.\s.*?)(?=\t?\s*%s\.\s)\t?\s*(?P<Y>%s\.\s.*)$' % (la, lb, lb), full_text, re.DOTALL)
-    if not m: return None
-    out = []
-    for letter, key in ((la, "X"), (lb, "Y")):
-        segs = _seg_slice(spans, m.start(key), m.end(key))
-        segs, is_correct, tf_ans = _mark_option_correctness(segs)
-        out.append(Option(letter, segs, is_correct, tf_ans))
-    return out
-
-def _extract_separate_options(paragraphs4, letters="ABCD"):
-    options = []
-    for letter, p in zip(letters, paragraphs4):
-        spans, full_text = get_para_elements(p)
-        segs = _seg_slice(spans, 0, len(full_text))
-        segs, is_correct, tf_ans = _mark_option_correctness(segs)
-        options.append(Option(letter, segs, is_correct, tf_ans))
-    return options
-
-def _spec_text(spec):
-    return "".join(t for el, t, _s, _n in spec.segments).replace("\u200b", "")
-
-def parse_exam(docx_path):
-    doc = Document(docx_path)
-    from docx.text.paragraph import Paragraph
-    paragraphs = []
-    for child in doc.element.body:
-        if child.tag == qn('w:p'): paragraphs.append(Paragraph(child, doc._body))
-        elif child.tag == qn('w:tbl'): paragraphs.append(_TableItem(child))
-    n = len(paragraphs)
-    marker_at, marker_span_at = {}, {}
-    for i, p in enumerate(paragraphs):
-        m = QUESTION_RE.search(para_text(p))
-        if m:
-            marker_at[i] = int(m.group(1))
-            marker_span_at[i] = m.span(1)
-
-    marker_indices = sorted(marker_at.keys())
-    prelude, questions, fillers_after = [], [], {}
-    first_marker_idx = marker_indices[0] if marker_indices else n
-    for i in range(0, first_marker_idx):
-        prelude.append(_make_para_spec(paragraphs[i]))
-
-    for mi_pos, idx in enumerate(marker_indices):
-        qnum = marker_at[idx]
-        qid = mi_pos 
-        num_span = marker_span_at[idx]
-        qb = QuestionBlock(qid, qnum)
-        marker_para = paragraphs[idx]
-        marker_para_text = para_text(marker_para)
-        after_marker = QUESTION_RE.search(marker_para_text).end()
-        next_marker_idx = marker_indices[mi_pos + 1] if mi_pos + 1 < len(marker_indices) else n
-
-        opts, stem_end_abs = _extract_inline_options(marker_para, after_marker)
-        cursor = idx + 1
-        if opts is not None:
-            qb.stem_paragraphs.append(_make_para_spec(marker_para, 0, stem_end_abs, num_span))
-            qb.options = opts
-            qb.options_mode = 'inline_with_marker'
-            qb.options_ppr_source = marker_para
-        else:
-            qb.stem_paragraphs.append(_make_para_spec(marker_para, 0, len(marker_para_text), num_span))
-            found_options = False
-            while cursor < next_marker_idx:
-                p = paragraphs[cursor]
-                text = para_text(p)
-                if PART_HEAD_RE.match(text): break
-                if OPTION_START_RE.match(text):
-                    m_inline = INLINE_OPTIONS_RE.search(text)
-                    if m_inline and m_inline.start('A') == 0:
-                        opts, _ = _extract_inline_options(p, 0)
-                        qb.options = opts
-                        qb.options_mode = 'same_line'
-                        qb.options_ppr_source = p
-                        cursor += 1
-                        found_options = True
-                        break
-                    m0 = OPTION_START_RE.match(text)
-                    if m0.group(1) == 'A' and cursor + 3 < next_marker_idx:
-                        p2, p3, p4 = paragraphs[cursor + 1], paragraphs[cursor + 2], paragraphs[cursor + 3]
-                        m1, m2, m3 = (OPTION_START_RE.match(para_text(p2)), OPTION_START_RE.match(para_text(p3)), OPTION_START_RE.match(para_text(p4)))
-                        if m1 and m1.group(1) == 'B' and m2 and m2.group(1) == 'C' and m3 and m3.group(1) == 'D':
-                            opts = _extract_separate_options([p, p2, p3, p4])
-                            qb.options = opts
-                            qb.options_mode = 'separate'
-                            qb.options_ppr_source = p
-                            cursor += 4
-                            found_options = True
-                            break
-                if re.match(r'^\s*A\.\s', text) and cursor + 1 < next_marker_idx and re.match(r'^\s*C\.\s', para_text(paragraphs[cursor + 1])):
-                    ab = _extract_pair(p, 'A', 'B')
-                    cd = _extract_pair(paragraphs[cursor + 1], 'C', 'D')
-                    if ab and cd:
-                        qb.options = ab + cd
-                        qb.options_mode = 'two_lines'
-                        qb.options_ppr_source = p
-                        qb.options_ppr_source2 = paragraphs[cursor + 1]
-                        cursor += 2
-                        found_options = True
-                        break
-                ms = STMT_START_RE.match(text)
-                if ms and ms.group(1) == 'a' and cursor + 3 < next_marker_idx:
-                    rest = [paragraphs[cursor + k] for k in (1, 2, 3)]
-                    ms2 = [STMT_START_RE.match(para_text(r)) for r in rest]
-                    if all(ms2) and [m_.group(1) for m_ in ms2] == ['b', 'c', 'd']:
-                        qb.options = _extract_separate_options([p] + rest, "abcd")
-                        qb.options_mode = 'separate'
-                        qb.options_ppr_source = p
-                        cursor += 4
-                        found_options = True
-                        break
-                qb.stem_paragraphs.append(_make_para_spec(p))
-                cursor += 1
-            if not found_options:
-                qb.options = []
-                qb.options_mode = None
-
-        fillers_after[qid] = []
-        for i in range(cursor, next_marker_idx):
-            fillers_after[qid].append(_make_para_spec(paragraphs[i]))
-
-        # Trích xuất đáp án ngắn (Phần 3)
-        found_ans = False
-        for i in reversed(range(len(fillers_after[qid]))):
-            ptxt = _spec_text(fillers_after[qid][i])
-            if ANS_RE.match(ptxt):
-                qb.short_answer_spec = fillers_after[qid][i]
-                fillers_after[qid].pop(i)
-                found_ans = True
-                break
-                
-        if not found_ans:
-            for i in reversed(range(len(qb.stem_paragraphs))):
-                ptxt = _spec_text(qb.stem_paragraphs[i])
-                if ANS_RE.match(ptxt):
-                    qb.short_answer_spec = qb.stem_paragraphs[i]
-                    qb.stem_paragraphs.pop(i)
-                    break
-
-        questions.append(qb)
-
-    return {"doc_path": docx_path, "prelude": prelude, "questions": questions, "fillers_after": fillers_after}
-
-def _spec_has_content(spec):
-    for el, t, _s, _n in spec.segments:
-        if el.tag == qn('w:r'):
-            if t.replace("\u200b", "").strip(): return True
-        else:
-            if el.tag.endswith('}oMath') or el.tag.endswith('}oMathPara'): return True
-            if "".join(el.itertext()).replace("\u200b", "").strip(): return True
-    return False
-
-def _run_is_bold(el, para):
-    rpr = el.find(qn('w:rPr'))
-    if rpr is not None:
-        b = rpr.find(qn('w:b'))
-        if b is not None:
-            return b.get(qn('w:val')) not in ('0', 'false', 'off')
-    try:
-        return bool(para.style.font.bold)
-    except Exception:
-        return False
-
-def _spec_is_bold(spec):
-    total = bold = 0
-    for el, t, _s, _n in spec.segments:
-        if el.tag != qn('w:r'): continue
-        n = sum(1 for c in t if not c.isspace() and c != "\u200b")
-        if n == 0: continue
-        total += n
-        if _run_is_bold(el, spec.source_paragraph): bold += n
-    return total > 0 and bold / total >= 0.6
-
-def _header_specs(parsed, i, qids):
-    if i > 0:
-        return list(parsed["fillers_after"].get(qids[i - 1], []))
-    specs = list(parsed["prelude"]) if qids[0] == 0 else list(parsed["fillers_after"].get(qids[0] - 1, []))
-    tail = []
-    for sp in reversed(specs):
-        if _spec_has_content(sp): tail.append(sp)
-        elif tail: break
-    return list(reversed(tail))
-
-def _detect_segments(parsed, part):
-    qids = list(range(part["q_from_id"], part["q_to_id"] + 1))
-    n = len(qids)
-    num_at = {parsed["questions"][q].number: k for k, q in enumerate(qids)}
-    heads = {}
-    for i in range(n):
-        specs = _header_specs(parsed, i, qids)
-        bold = [sp for sp in specs if _spec_has_content(sp) and _spec_is_bold(sp) and "PHẦN" not in _spec_text(sp).upper()]
-        if bold:
-            heads[i] = (bold, [sp for sp in specs if sp not in bold and _spec_has_content(sp)])
-    starts = sorted(heads)
-    segments, cursor = 0, 0
-    segments = []
-    for si, i in enumerate(starts):
-        bold, others = heads[i]
-        nxt = starts[si + 1] if si + 1 < len(starts) else n
-        end = nxt - 1
-        text = " ".join(_spec_text(sp) for sp in bold)
-        ks = [num_at[x] for x in (int(v) for v in re.findall(r'\d+', text)) if x in num_at and num_at[x] >= i]
-        j = max(ks) if ks and min(ks) == i else None
-        if j is not None and j < end: end = j
-        refs = j is not None and j > i and not (i == 0 and j == n - 1)
-        passage = i > 0 and len(others) > 0
-        if i > cursor:
-            segments.append({"qids": qids[cursor:i], "header": False, "shared": False})
-        segments.append({"qids": qids[i:end + 1], "header": True, "shared": bool(refs or passage)})
-        cursor = end + 1
-    if cursor < n:
-        segments.append({"qids": qids[cursor:], "header": False, "shared": False})
-    for sg in segments:
-        sg["q_from"] = parsed["questions"][sg["qids"][0]].number
-        sg["q_to"] = parsed["questions"][sg["qids"][-1]].number
-    return segments
-
-def detect_parts(parsed):
-    parts = []
-    questions = parsed["questions"]
-    if not questions: return parts
-
-    current_label = "Phần I"
-    part_qids = []
-
-    def extract_part_label(specs):
-        for spec in specs:
-            if spec.table: continue
-            text = "".join(seg[1] for seg in spec.segments).strip()
-            if "PHẦN" in text.upper(): return text
-        return None
-
-    lbl = extract_part_label(parsed["prelude"])
-    if lbl: current_label = lbl
-
-    for q in questions:
-        if q.id > 0:
-            lbl = extract_part_label(parsed["fillers_after"].get(q.id - 1, []))
-            if lbl:
-                if part_qids:
-                    parts.append({
-                        "label": current_label[:100],
-                        "q_from_id": part_qids[0],
-                        "q_to_id": part_qids[-1],
-                        "is_cloze": False,
-                        "explicit_lock": False,
-                        "from_regex": False
-                    })
-                    part_qids = []
-                current_label = lbl
-        part_qids.append(q.id)
-
-    if part_qids:
-        parts.append({
-            "label": current_label[:100],
-            "q_from_id": part_qids[0],
-            "q_to_id": part_qids[-1],
-            "is_cloze": False,
-            "explicit_lock": False,
-            "from_regex": False
-        })
-
-    for p in parts:
-        p["q_from"] = parsed["questions"][p["q_from_id"]].number
-        p["q_to"] = parsed["questions"][p["q_to_id"]].number
-        p["segments"] = _detect_segments(parsed, p)
-
-    return parts
-
-def shuffle_plan(parsed, parts, opts, rng=None):
-    if rng is None: rng = random
-    questions = parsed["questions"]
-    qmap = {q.id: q for q in questions}
-    all_ids = sorted(qmap.keys())
-    
-    q_to_part = {}
-    for pi, part in enumerate(parts):
-        for q_id in range(part["q_from_id"], part["q_to_id"] + 1):
-            q_to_part[q_id] = pi
-            
-    blocks = []
-    current_block = None
-    for q_id in all_ids:
-        p = q_to_part.get(q_id)
-        if current_block is None or current_block["part_idx"] != p:
-            if current_block is not None: blocks.append(current_block)
-            current_block = {"part_idx": p, "qids": [], "specs_before": [], "specs_internal": {}}
-        current_block["qids"].append(q_id)
-    if current_block is not None: blocks.append(current_block)
-        
-    global_header = parsed["prelude"]
-    
-    for i, block in enumerate(blocks):
-        for j, q_id in enumerate(block["qids"]):
-            if j == len(block["qids"]) - 1: 
-                if i + 1 < len(blocks): blocks[i + 1]["specs_before"].extend(parsed["fillers_after"].get(q_id, []))
-                else: block["specs_internal"][q_id] = parsed["fillers_after"].get(q_id, [])
-            else: block["specs_internal"][q_id] = parsed["fillers_after"].get(q_id, [])
-                
-    if opts.get("shuffle_parts", False):
-        rng.shuffle(blocks)
-        
-    option_perm = {}
-    for q_id, q in qmap.items(): option_perm[q_id] = list(q.options)
-        
-    for block in blocks:
-        p_idx = block["part_idx"]
-        if p_idx is not None:
-            cfg = opts.get(p_idx, {})
-            part_info = parts[p_idx]
-            is_part3 = "PHẦN III" in part_info["label"].upper() or "PHẦN 3" in part_info["label"].upper()
-            
-            if cfg.get("shuffle_options") and not is_part3:
-                for q_id in block["qids"]:
-                    if q_id in qmap and len(qmap[q_id].options) == 4:
-                        order = [0, 1, 2, 3]
-                        rng.shuffle(order)
-                        option_perm[q_id] = [qmap[q_id].options[idx] for idx in order]
-                        
-            if cfg.get("shuffle_order") and not part_info["is_cloze"] and len(block["qids"]) > 1:
-                segs = part_info.get("segments")
-                new_qids = []
-                if segs:
-                    locks = cfg.get("locks")
-                    for si, seg in enumerate(segs):
-                        g = list(seg["qids"])
-                        if locks is not None and si < len(locks): locked = bool(locks[si])
-                        else: locked = seg["header"] and seg["shared"]
-                        if not locked: rng.shuffle(g)
-                        new_qids.extend(g)
-                if segs and sorted(new_qids) == sorted(block["qids"]):
-                    slot_fillers = [block["specs_internal"].get(q, []) for q in block["qids"]]
-                    block["qids"] = new_qids
-                    block["specs_internal"] = {q: slot_fillers[pos] for pos, q in enumerate(new_qids)}
-                else:
-                    rng.shuffle(block["qids"])
-                
-    new_order = []
-    for block in blocks: new_order.extend(block["qids"])
-        
-    number_str_map = {}
-    for block in blocks:
-        for pos, old_q_id in enumerate(block["qids"]):
-            number_str_map[old_q_id] = str(pos + 1)
-            
-    return global_header, blocks, option_perm, number_str_map, new_order
-
-def _copy_seg_run(paragraph, seg, new_number_str, num_replaced, strip_underline=False):
-    el, sliced_t, needs_slicing, is_num = seg
-    new_el = copy.deepcopy(el)
-    
-    if strip_underline and new_el.tag == qn('w:r'):
-        rpr = new_el.find(qn('w:rPr'))
-        if rpr is not None:
-            for u in list(rpr.findall(qn('w:u'))):
-                rpr.remove(u)
-                
-    if new_el.tag == qn('w:r'):
-        out_text = sliced_t
-        if is_num and new_number_str is not None:
-            if not num_replaced[0]:
-                out_text = new_number_str
-                num_replaced[0] = True
-            else:
-                out_text = ""
-        
-        if needs_slicing or is_num:
-            t_nodes = new_el.findall(qn('w:t'))
-            if t_nodes:
-                t_nodes[0].text = out_text
-                for t_node in t_nodes[1:]:
-                    t_node.text = "" 
-            else:
-                if out_text and out_text != "\u200B":
-                    new_t = OxmlElement('w:t')
-                    new_t.text = out_text
-                    new_el.append(new_t)
-                    
-    paragraph._p.append(new_el)
-
-def _emit_table(doc, spec):
-    body = doc.element.body
-    new_tbl = copy.deepcopy(spec.table)
-    sect = body.find(qn('w:sectPr'))
-    if sect is not None: sect.addprevious(new_tbl)
-    else: body.append(new_tbl)
-
-def _lab(opt, i):
-    return ("abcd" if opt.letter_orig in "abcd" else "ABCD")[i]
-
-def _emit_plain_paragraph(doc, spec):
-    if spec.table is not None:
-        return _emit_table(doc, spec)
-    p = doc.add_paragraph()
-    copy_ppr(p, spec.source_paragraph)
-    num_replaced = [False]
-    for seg in spec.segments: 
-        _copy_seg_run(p, seg, None, num_replaced)
-    return p
-
-def _relabel_option_segments(segments, new_letter):
-    mod_segments = list(segments)
-    for i, (el, sliced_t, needs_slicing, is_num) in enumerate(mod_segments):
-        if el.tag == qn('w:r') and sliced_t.strip():
-            m = re.search(r'[ABCDabcd]', sliced_t)
-            if m:
-                new_t = sliced_t[:m.start()] + new_letter + sliced_t[m.end():]
-                mod_segments[i] = (el, new_t, True, is_num)
-                break
-    return mod_segments
-
-def _emit_option_run(paragraph, opt, new_letter, is_first_of_opt):
-    segments = opt.segments
-    if is_first_of_opt:
-        segments = _relabel_option_segments(segments, new_letter)
-    num_replaced = [False]
-    for seg in segments:
-        _copy_seg_run(paragraph, seg, None, num_replaced, strip_underline=True)
-
-def render_exam_docx(parsed, global_header, blocks, option_perm, number_str_map, out_path, header_line=None):
-    doc = Document(parsed["doc_path"])
-    body = doc.element.body
-    sect_prs = body.findall(qn('w:sectPr'))
-    for child in list(body):
-        if child.tag != qn('w:sectPr'): body.remove(child)
-        
-    if header_line:
-        p = doc.add_paragraph()
-        r = p.add_run(header_line)
-        r.bold = True
-        
-    qmap = {q.id: q for q in parsed["questions"]}
-    for spec in global_header: 
-        _emit_plain_paragraph(doc, spec)
-        
-    for block in blocks:
-        for spec in block["specs_before"]: 
-            _emit_plain_paragraph(doc, spec)
-            
-        for old_q_id in block["qids"]:
-            q = qmap[old_q_id]
-            new_num_str = number_str_map[old_q_id]
-            opts = option_perm[old_q_id]
-            
-            if q.options_mode == 'inline_with_marker':
-                p = doc.add_paragraph()
-                copy_ppr(p, q.stem_paragraphs[0].source_paragraph)
-                num_replaced = [False]
-                for seg in q.stem_paragraphs[0].segments: 
-                    _copy_seg_run(p, seg, new_num_str, num_replaced)
-                for i, opt in enumerate(opts):
-                    if i > 0:
-                        tab_run = p.add_run("\t")
-                        if opt.segments: copy_rpr(tab_run._r, opt.segments[0][0], strip_underline=True)
-                    _emit_option_run(p, opt, _lab(opt, i), True)
-            else:
-                for sp in q.stem_paragraphs:
-                    if sp.table is not None:
-                        _emit_table(doc, sp)
-                        continue
-                    p = doc.add_paragraph()
-                    copy_ppr(p, sp.source_paragraph)
-                    num_replaced = [False]
-                    for seg in sp.segments: 
-                        _copy_seg_run(p, seg, new_num_str, num_replaced)
-                        
-                if q.options_mode == 'same_line':
-                    p = doc.add_paragraph()
-                    copy_ppr(p, q.options_ppr_source)
-                    for i, opt in enumerate(opts):
-                        if i > 0:
-                            tab_run = p.add_run("\t")
-                            if opt.segments: copy_rpr(tab_run._r, opt.segments[0][0], strip_underline=True)
-                        _emit_option_run(p, opt, _lab(opt, i), True)
-                elif q.options_mode == 'two_lines':
-                    for k, src in enumerate((q.options_ppr_source, q.options_ppr_source2)):
-                        p = doc.add_paragraph()
-                        copy_ppr(p, src)
-                        for i in (2 * k, 2 * k + 1):
-                            if i % 2 == 1:
-                                tab_run = p.add_run("\t")
-                                if opts[i].segments: copy_rpr(tab_run._r, opts[i].segments[0][0], strip_underline=True)
-                            _emit_option_run(p, opts[i], _lab(opts[i], i), True)
-                elif q.options_mode == 'separate':
-                    for i, opt in enumerate(opts):
-                        p = doc.add_paragraph()
-                        copy_ppr(p, q.options_ppr_source)
-                        _emit_option_run(p, opt, _lab(opt, i), True)
-
-            for spec in block["specs_internal"].get(old_q_id, []): 
-                _emit_plain_paragraph(doc, spec)
-                
-    if sect_prs: body.append(copy.deepcopy(sect_prs[-1]))
-    doc.save(out_path)
-
-def compute_answer_key(blocks, option_perm, number_str_map, qmap, parts):
-    result = []
-    for block in blocks:
-        part_idx = block["part_idx"]
-        part_info = parts[part_idx]
-        is_part2 = "PHẦN II" in part_info["label"].upper() or "PHẦN 2" in part_info["label"].upper()
-        is_part3 = "PHẦN III" in part_info["label"].upper() or "PHẦN 3" in part_info["label"].upper()
-        
-        for old_q_id in block["qids"]:
-            q = qmap[old_q_id]
-            opts = option_perm[old_q_id]
-            correct_ans = None
-            
-            if is_part3:
-                correct_ans = getattr(q, 'short_answer_spec', None)
-            elif is_part2 and opts:
-                ans_str = ""
-                for opt in opts:
-                    ans_str += opt.tf_ans if getattr(opt, 'tf_ans', None) else "?"
-                correct_ans = ans_str
-            else:
-                if opts and opts[0].letter_orig in "abcd":
-                    if any(o.is_correct for o in opts):
-                        correct_ans = "".join("Đ" if o.is_correct else "S" for o in opts)
-                else:
-                    for i, opt in enumerate(opts):
-                        if opt.is_correct: 
-                            correct_ans = "ABCD"[i]; break
-            result.append((number_str_map[old_q_id], correct_ans))
-    return result
-
-def _strip_ans_prefix(segments):
-    new_segs = list(segments)
-    for i, (el, text, ns, is_num) in enumerate(new_segs):
-        if el.tag == qn('w:r'):
-            m = re.search(r'(?:Đáp\s*án|ĐS|Kết\s*quả|ĐÁP\s*ÁN)\s*[:\.]\s*', text, re.IGNORECASE)
-            if m:
-                new_t = text[m.end():]
-                new_segs[i] = (el, new_t, True, is_num)
-                for j in range(i):
-                    new_segs[j] = (new_segs[j][0], "", True, new_segs[j][3])
-                break
-    return new_segs
-
-def build_answer_key_docx(all_keys, out_path):
-    doc = Document()
-    doc.add_heading("BẢNG ĐÁP ÁN", level=1)
-    for ma_de_label, keys in all_keys:
-        doc.add_heading(ma_de_label, level=2)
-        has_spec = any(isinstance(k[1], ParaSpec) for k in keys)
-        cols = 5 if has_spec else 10 
-        
-        table = doc.add_table(rows=0, cols=cols)
-        table.style = "Table Grid"
-        
-        for i in range(0, len(keys), cols):
-            row_cells = table.add_row().cells
-            for j, (num_str, ans_obj) in enumerate(keys[i:i + cols]):
-                cell = row_cells[j]
-                if isinstance(ans_obj, ParaSpec):
-                    p = cell.paragraphs[0]
-                    p.add_run(f"{num_str}. ")
-                    stripped_segs = _strip_ans_prefix(ans_obj.segments)
-                    num_replaced = [False]
-                    for seg in stripped_segs:
-                        _copy_seg_run(p, seg, None, num_replaced)
-                else:
-                    shown = CIRCLED.get(ans_obj, ans_obj) if ans_obj else "?"
-                    cell.text = f"{num_str}. {shown}"
-    doc.save(out_path)
-</script>
-
-<script type="text/plain" id="wrapper-py">
-import io, sys, json, base64, random, types
-engine_code = open('/engine_source.py').read()
-engine_module = types.ModuleType('engine')
-exec(engine_code, engine_module.__dict__)
-sys.modules['engine'] = engine_module
-import engine
-
-G_PARSED = None
-G_PARTS = None
-
-def parse_docx(base64_data):
-    global G_PARSED, G_PARTS
-    file_bytes = base64.b64decode(base64_data)
-    with open('/input.docx', 'wb') as f: f.write(file_bytes)
-    G_PARSED = engine.parse_exam('/input.docx')
-    G_PARTS = engine.detect_parts(G_PARSED)
-    return json.dumps(G_PARTS)
-
-def generate_shuffled(options_json):
-    opts = json.loads(options_json)
-    num_ma_de = opts.pop('num_ma_de', 4)
-    start_code = opts.pop('start_code', 101)
-    insert_header = opts.pop('insert_header', True)
-    shuffle_parts_globally = opts.pop('shuffle_parts', False)
-    
-    py_opts = {"shuffle_parts": shuffle_parts_globally}
-    for k, v in opts.items():
-        if k.isdigit(): py_opts[int(k)] = v
-            
-    out_files = {}
-    all_keys = []
-    
-    for i in range(num_ma_de):
-        ma_de = str(start_code + i)
-        global_header, blocks, option_perm, number_str_map, new_order = engine.shuffle_plan(G_PARSED, G_PARTS, py_opts, rng=random)
-        header_line = f"Mã đề: {ma_de}" if insert_header else None
-        out_path = f"/MaDe_{ma_de}.docx"
-        engine.render_exam_docx(G_PARSED, global_header, blocks, option_perm, number_str_map, out_path, header_line=header_line)
-        
-        qmap = {q.id: q for q in G_PARSED["questions"]}
-        for b in blocks:
-            ks = engine.compute_answer_key([b], option_perm, number_str_map, qmap, G_PARTS)
-            lbl = f"Mã đề {ma_de}" if len(blocks) == 1 else f"Mã đề {ma_de} – Phần {(b['part_idx'] or 0) + 1}"
-            all_keys.append((lbl, ks))
-        
-        with open(out_path, 'rb') as f:
-            out_files[f"MaDe_{ma_de}.docx"] = base64.b64encode(f.read()).decode('utf-8')
-            
-    key_path = "/BangDapAn.docx"
-    engine.build_answer_key_docx(all_keys, key_path)
-    with open(key_path, 'rb') as f:
-        out_files["BangDapAn.docx"] = base64.b64encode(f.read()).decode('utf-8')
-        
-    return json.dumps(out_files)
-</script>
+<div id="toast" class="toast hide" role="status"></div>
 
 <script>
-    async function initPyodide() {
-        try {
-            let pyodide = await loadPyodide();
-            await pyodide.loadPackage("micropip");
-            const micropip = pyodide.pyimport("micropip");
-            await micropip.install("python-docx");
-            
-            const engineCode = document.getElementById('engine-py').innerText;
-            pyodide.FS.writeFile('/engine_source.py', engineCode);
-            
-            const wrapperCode = document.getElementById('wrapper-py').innerText;
-            pyodide.runPython(wrapperCode);
-            
-            window.pyodide = pyodide;
-            
-            const status = document.getElementById('system-status');
-            status.className = "flex items-center px-5 py-2 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-sm font-bold shadow-sm transition-all duration-300";
-            status.innerHTML = `<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Hệ thống sẵn sàng hoạt động`;
-            document.getElementById('btn-analyze').disabled = false;
-        } catch (err) {
-            document.getElementById('system-status').className = "flex items-center px-5 py-2 rounded-full bg-red-50 border border-red-200 text-red-700 text-sm font-bold shadow-sm";
-            document.getElementById('system-status').innerHTML = `<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Lỗi khởi tạo`;
-        }
-    }
-    initPyodide();
+// ================= CẤU HÌNH GỬI ĐIỂM VỀ GOOGLE SHEETS =================
+const PW = '28011981';
+const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbyThYxetYYKy3OKCs0eIkkoS8enSVfUa8-oCOnrfPomwek0nYzsj5DTpw4bxsnFM889/exec';
 
-    function handleFileSelect(input) {
-        if(input.files.length > 0) {
-            document.getElementById('file-name-display').innerText = input.files[0].name;
-            document.getElementById('file-name-display').classList.add('text-indigo-600', 'font-bold');
-        }
-    }
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
-    async function analyzeFile() {
-        const file = document.getElementById('docx-file').files[0];
-        if (!file) return alert("Vui lòng tải lên file đề thi gốc!");
-        if (!file.name.toLowerCase().endsWith('.docx')) {
-            return alert("Định dạng file không hợp lệ. Vui lòng chọn file Word (.docx).");
-        }
-        
-        const btn = document.getElementById('btn-analyze');
-        btn.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Đang quét dữ liệu...`;
-        btn.disabled = true;
+let base=[], cur=[], lib=[], exam=null;
+let studentData = { name: '', class: '', startTime: 0 };
+let timerInterval, timeLeft = 0, submitted = false;
+const LK = 'exams_v2';
+const L4 = 'ABCD';
 
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const base64 = e.target.result.split(',')[1];
-            try {
-                const parseDocxFn = window.pyodide.globals.get('parse_docx');
-                const partsStr = parseDocxFn(base64);
-                parseDocxFn.destroy();
-                const parts = JSON.parse(partsStr);
-                renderPartsUI(parts);
-                
-                document.getElementById('step2').classList.remove('opacity-40', 'pointer-events-none', 'translate-x-4');
-                document.getElementById('step3').classList.remove('opacity-40', 'pointer-events-none', 'translate-y-4');
-                
-            } catch (err) {
-                alert("File sai cấu trúc hoặc lỗi xử lý:\n" + err);
-            } finally {
-                btn.innerHTML = `<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg> Phân Tích Lại Đề Khác`;
-                btn.disabled = false;
-            }
-        };
-        reader.onerror = function() {
-            alert("Không thể đọc file. Vui lòng thử chọn lại file.");
-            btn.innerHTML = `Phân Tích Đề`;
-            btn.disabled = false;
-        };
-        reader.readAsDataURL(file);
-    }
+// ================= HẠN THỜI GIAN MỞ / ĐÓNG ĐỀ =================
+// serverOffset = (giờ máy chủ) - (giờ máy học sinh). Dùng giờ máy chủ để học sinh chỉnh đồng hồ máy cũng không qua mặt được.
+let serverOffset = 0, gateTimer = null;
+const nowMs = () => Date.now() + serverOffset;
+const p2 = n => String(n).padStart(2, '0');
+const toLocalInput = ms => {
+    if(!ms) return '';
+    const d = new Date(ms);
+    return `${d.getFullYear()}-${p2(d.getMonth()+1)}-${p2(d.getDate())}T${p2(d.getHours())}:${p2(d.getMinutes())}`;
+};
+const fromLocalInput = v => { const t = v ? new Date(v).getTime() : 0; return isFinite(t) ? t : 0; };
+const fmtDT = ms => { const d = new Date(ms); return `${p2(d.getHours())}:${p2(d.getMinutes())} ngày ${p2(d.getDate())}/${p2(d.getMonth()+1)}/${d.getFullYear()}`; };
+const fmtCountdown = sec => {
+    const d = Math.floor(sec / 86400), h = Math.floor(sec % 86400 / 3600), m = Math.floor(sec % 3600 / 60), s = sec % 60;
+    return (d ? d + ' ngày ' : '') + `${p2(h)}:${p2(m)}:${p2(s)}`;
+};
 
-    function syncGroupToggle(index) {
-        const on = document.getElementById(`opt-order-${index}`).checked;
-        document.querySelectorAll(`[id^="opt-seg-${index}-"]`).forEach(el => el.disabled = !on);
-        const row = document.getElementById(`group-row-${index}`);
-        if (row) row.classList.toggle('opacity-40', !on);
-    }
+// ================= KIỂM TRA ROUTING =================
+const urlParams = new URLSearchParams(window.location.search);
+const studentExamId = urlParams.get('s');
 
-    function renderPartsUI(parts) {
-        const container = document.getElementById('parts-container');
-        container.innerHTML = '';
-        window.currentParts = parts;
-        
-        parts.forEach((part, index) => {
-            let lockState = part.is_cloze;
-            let isPart3 = part.label.toUpperCase().includes("PHẦN III") || part.label.toUpperCase().includes("PHẦN 3");
-            
-            let lockIcon = lockState 
-                ? `<div class="flex items-center bg-rose-50 px-3 py-1.5 rounded-lg border border-rose-100"><svg class="w-4 h-4 text-rose-500 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg><span class="text-[11px] font-bold text-rose-600 uppercase tracking-wider">Khóa thứ tự câu</span></div>`
-                : `<div class="flex items-center bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-100"><svg class="w-4 h-4 text-emerald-500 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"></path></svg><span class="text-[11px] font-bold text-emerald-600 uppercase tracking-wider">Cho phép đảo câu</span></div>`;
+if(studentExamId) {
+    initStudentFlow(studentExamId);
+} else {
+    initTeacherFlow();
+}
 
-            const segs = part.segments || [];
-            const segRows = segs.some(sg => sg.header) ? segs.map((sg, si) => {
-                const rg = sg.q_from === sg.q_to ? `Câu ${sg.q_from}` : `Câu ${sg.q_from}–${sg.q_to}`;
-                if (!sg.header) return `<div class="text-[12px] text-slate-500 px-2 py-1">${rg}: không có câu in đậm dẫn nhóm (đảo tự do)</div>`;
-                return `<label class="flex items-center justify-between px-2 py-1.5 rounded-lg hover:bg-slate-50 cursor-pointer">
-                    <span class="text-[13px] text-slate-700"><b>Nhóm ${rg}</b> <span class="text-slate-400">(${sg.shared ? 'có đoạn văn/đề chung' : 'chỉ có câu dẫn in đậm'})</span></span>
-                    <span class="flex items-center text-[12px] font-semibold text-indigo-700"><input type="checkbox" id="opt-seg-${index}-${si}" ${sg.shared ? 'checked' : ''} class="w-4 h-4 mr-1.5 accent-indigo-600">Giữ nguyên</span>
-                </label>`;
-            }).join('') : `<div class="text-[12px] text-slate-500 px-2 py-1">Không phát hiện câu in đậm dẫn nhóm → cả khối đảo tự do.</div>`;
-            
-            let orderDisabled = lockState ? "disabled" : "";
-            let orderOpacity = lockState ? "opacity-40 cursor-not-allowed grayscale" : "cursor-pointer hover:bg-slate-50";
-
-            let optsDisabled = isPart3 ? "disabled" : "";
-            let optsOpacity = isPart3 ? "opacity-40 cursor-not-allowed grayscale" : "cursor-pointer hover:bg-slate-50";
-            let optsChecked = isPart3 ? "" : "checked";
-            let optsNote = isPart3 ? `<p class="text-[11px] text-rose-500 mt-2 font-semibold">* Phần 3 tự động vô hiệu hóa tính năng xáo phương án</p>` : "";
-
-            container.innerHTML += `
-                <div class="animate-fade-in bg-white border ${part.explicit_lock ? 'border-rose-200 shadow-rose-100' : 'border-slate-200'} rounded-2xl p-5 shadow-sm hover:shadow-md transition-all duration-300">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="flex-1 pr-5">
-                            <h3 class="font-extrabold text-slate-800 text-sm uppercase tracking-wider flex items-center">
-                                <span class="w-2 h-2 rounded-full bg-indigo-500 mr-2"></span>
-                                Khối: CÂU ${part.q_from} - ${part.q_to}
-                            </h3>
-                            <div class="mt-2 bg-slate-50 rounded-lg p-3 border-l-4 border-indigo-300">
-                                <p class="text-[13px] text-slate-600 line-clamp-2 leading-relaxed" title="${part.label}">${part.label}</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center shrink-0">
-                            ${lockIcon}
-                        </div>
-                    </div>
-                    
-                    <div class="flex items-start space-x-4 border-t border-slate-100 pt-4">
-                        <div class="flex-1">
-                            <label class="flex items-center justify-between p-2 rounded-lg ${optsOpacity} transition-colors border border-transparent ${!isPart3 ? 'hover:border-slate-100' : ''}">
-                                <span class="text-sm font-semibold ${isPart3 ? 'text-slate-400' : 'text-slate-700'}">Xáo phương án (A,B,C,D)</span>
-                                <div class="relative ml-3">
-                                    <input type="checkbox" id="opt-opts-${index}" ${optsChecked} ${optsDisabled} class="sr-only toggle-checkbox">
-                                    <div class="block bg-slate-200 w-10 h-6 rounded-full toggle-label transition-colors"></div>
-                                    <div class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform shadow-sm toggle-dot"></div>
-                                </div>
-                            </label>
-                            ${optsNote}
-                        </div>
-
-                        <div class="w-px h-8 bg-slate-200"></div>
-
-                        <div class="flex-1">
-                            <label class="flex items-center justify-between p-2 rounded-lg ${orderOpacity} transition-colors border border-transparent ${!lockState ? 'hover:border-slate-100' : ''}">
-                                <span class="text-sm font-semibold ${lockState ? 'text-slate-400' : 'text-slate-700'}">Đảo câu (Nội bộ)</span>
-                                <div class="relative ml-3">
-                                    <input type="checkbox" id="opt-order-${index}" ${!lockState ? 'checked' : ''} ${orderDisabled} onchange="syncGroupToggle(${index})" class="sr-only toggle-checkbox">
-                                    <div class="block bg-slate-200 w-10 h-6 rounded-full toggle-label transition-colors"></div>
-                                    <div class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform shadow-sm toggle-dot"></div>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div id="group-row-${index}" class="border-t border-slate-100 mt-4 pt-3 ${lockState ? 'opacity-40' : ''}">
-                        <p class="text-[11px] font-bold text-slate-600 uppercase tracking-wider px-2 mb-1">Nhóm nhận diện bằng câu in đậm</p>
-                        ${segRows}
-                        <p class="text-[11px] text-slate-500 px-2 mt-1">Tích "Giữ nguyên": nhóm giữ nguyên vị trí và thứ tự câu bên trong. Bỏ tích: câu chỉ đảo trong phạm vi nhóm.</p>
-                    </div>
-                </div>
-            `;
-        });
-    }
-
-    // --- QUẢN LÝ SỐ LƯỢT DÙNG THỬ ---
-    let TRIAL_LIMIT = 10;
-    const TRIAL_PASSWORD = "tienhuong28011981@";
-    const TRIAL_COUNT_KEY = "dmd_trial_count";
-    const LIMIT_KEY = "dmd_limit_count"; 
-
-    function getTrialCount() {
-        return parseInt(localStorage.getItem(TRIAL_COUNT_KEY) || '0', 10) || 0;
-    }
+// ================= LUỒNG GIÁO VIÊN =================
+function initTeacherFlow() {
+    const ok = sessionStorage.getItem('auth') === '1';
+    $('login').classList.toggle('hide', ok);
+    $('app-teacher').classList.toggle('hide', !ok);
     
-    function getLimitCount() {
-        const storedLimit = localStorage.getItem(LIMIT_KEY);
-        if (storedLimit === null) {
-            localStorage.setItem(LIMIT_KEY, TRIAL_LIMIT.toString());
-            return TRIAL_LIMIT;
-        }
-        return parseInt(storedLimit, 10);
-    }
-
-    function markUsageIfNeeded() {
-        localStorage.setItem(TRIAL_COUNT_KEY, String(getTrialCount() + 1));
-        updateTrialUI();
-    }
-
-    function updateTrialUI() {
-        const el = document.getElementById('trial-status');
-        if (!el) return;
-        const limit = getLimitCount();
-        const count = getTrialCount();
-        const remaining = Math.max(0, limit - count);
-        el.innerHTML = `Lượt dùng còn lại: <strong class="text-blue-700 font-bold ml-1">${remaining}/${limit}</strong>`;
-    }
-
-    function showTrialModal() {
-        document.getElementById('trial-password-error').classList.add('hidden');
-        document.getElementById('trial-password-input').value = '';
-        const modal = document.getElementById('trial-modal');
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-        
-        setTimeout(() => {
-            modal.querySelector('div').classList.add('scale-100');
-            modal.querySelector('div').classList.remove('scale-95', 'opacity-0');
-        }, 10);
-        
-        document.getElementById('trial-password-input').focus();
-    }
-
-    function hideTrialModal() {
-        const modal = document.getElementById('trial-modal');
-        modal.querySelector('div').classList.remove('scale-100');
-        modal.querySelector('div').classList.add('scale-95', 'opacity-0');
-        
-        setTimeout(() => {
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }, 300);
-    }
-
-    function checkTrialAccess() {
-        if (getTrialCount() < getLimitCount()) return true;
-        showTrialModal();
-        return false;
-    }
-
-    document.getElementById('trial-confirm-btn').addEventListener('click', function() {
-        const input = document.getElementById('trial-password-input').value;
-        if (input === TRIAL_PASSWORD) {
-            let currentLimit = getLimitCount();
-            localStorage.setItem(LIMIT_KEY, (currentLimit + 10).toString());
-            hideTrialModal();
-            updateTrialUI();
-            alert("Mật khẩu chính xác! Bạn đã được cộng thêm 10 lượt dùng thử.");
-            shuffleAndExport(); 
+    $('lf').onsubmit = e => {
+        e.preventDefault();
+        if($('pw').value === PW) {
+            sessionStorage.setItem('auth', '1');
+            $('login').classList.add('hide');$('app-teacher').classList.remove('hide');
+            loadLib();
         } else {
-            document.getElementById('trial-password-error').classList.remove('hidden');
+            $('err').textContent = 'Mật khẩu sai!';
         }
+    };
+    $('out').onclick = () => { sessionStorage.removeItem('auth'); location.reload(); };
+    if(ok) loadLib();
+}
+
+function loadLib() {
+    try { lib = JSON.parse(localStorage.getItem(LK) || '[]'); } catch(e) { lib = []; }
+    showLib();
+}
+function saveLib() {
+    try { localStorage.setItem(LK, JSON.stringify(lib)); }
+    catch(e) { alert('Không lưu được vào bộ nhớ trình duyệt (có thể đã đầy do nhiều ảnh/công thức). Hãy xuất exams.json ngay để khỏi mất dữ liệu, sau đó xóa bớt đề cũ.'); }
+    showLib();
+}
+
+function showLib() {
+    $('lt').textContent = `📚 Danh sách đề thi (${lib.length})`;
+    $('libl').innerHTML = lib.length ? lib.map((x, i) => {
+        const tScale = x.scale === 'math' ? 'Toán' : (x.scale === 'english' ? 'Tiếng Anh' : 'Môn chung');
+        return `
+        <div class="lr">
+            <div class="lr-info"><span class="no">${i+1}</span>
+            <div><b>${esc(x.name)}</b><div class="note">${x.items.filter(k=>k.k==='q').length} câu • Cài đặt: ${x.time||0} phút - Thang điểm: ${tScale}${(x.openAt||x.closeAt) ? `<br>🕒 ${x.openAt ? 'Mở: ' + fmtDT(x.openAt) : 'Mở: ngay'} — ${x.closeAt ? 'Đóng: ' + fmtDT(x.closeAt) : 'không giới hạn'}` : ''}</div></div></div>
+            <div style="display:flex;gap:8px">
+                <button class="btn sec" onclick="openExam('${x.id}')">Quản lý</button>
+                <button class="btn sec" style="color:var(--bad);border-color:var(--bad)" onclick="delExam('${x.id}')">Xóa</button>
+            </div>
+        </div>`;
+    }).join('') : '<p class="note">Chưa có đề nào. Hãy tải file Word lên.</p>';
+}
+
+window.delExam = (id) => {
+    if(confirm('Xóa đề thi này?')) { 
+        if(exam && exam.id === id) exam = null; lib = lib.filter(x => x.id !== id); saveLib(); 
+        $('reqbox').classList.add('hide');$('list-teacher').innerHTML=''; 
+    }
+};
+
+window.openExam = (id) => {
+    exam = lib.find(x => x.id === id);
+    if(!exam) return;
+    $('reqbox').classList.remove('hide');$('cur-exam-name').textContent = exam.name;
+    
+    // Nạp cài đặt cũ (nếu có), mặc định bật xáo câu hỏi & xáo đáp án, tắt xáo nhóm
+    $('time-limit').value = exam.time || 0;
+    $('open-at').value = toLocalInput(exam.openAt);
+    $('close-at').value = toLocalInput(exam.closeAt);
+    $('exam-scale').value = exam.scale || 'other';$('chk-shuf-grp').checked = !!exam.shufGrp; 
+    $('chk-shuf-q').checked = exam.shufQ !== false; 
+    $('chk-shuf-opt').checked = exam.shufOpt !== false; 
+
+    cur = JSON.parse(JSON.stringify(exam.items)); 
+    renderTeacherPreview();
+};
+
+$('btn-save-settings').onclick = () => {
+    if(exam) {
+        const oa = fromLocalInput($('open-at').value), ca = fromLocalInput($('close-at').value);
+        if(oa && ca && ca <= oa) return alert('Giờ đóng đề phải sau giờ mở đề. Vui lòng kiểm tra lại.');
+        if(ca && ca <= Date.now() && !confirm('Giờ đóng đề đã qua, học sinh sẽ không vào làm được. Vẫn lưu?')) return;
+        exam.openAt = oa;
+        exam.closeAt = ca;
+        exam.time = parseInt($('time-limit').value) || 0;
+        exam.scale = $('exam-scale').value;
+        exam.shufGrp = $('chk-shuf-grp').checked;
+        exam.shufQ = $('chk-shuf-q').checked;
+        exam.shufOpt = $('chk-shuf-opt').checked;
+        saveLib();
+        alert('Đã lưu cài đặt! Nhớ xuất lại file exams.json để cập nhật lên Github.');
+    }
+};
+
+$('btn-clear-sch').onclick = () => { $('open-at').value = ''; $('close-at').value = ''; };
+
+$('btn-copy-link').onclick = () => {
+    if(!exam) return;
+    const link = window.location.origin + window.location.pathname + '?s=' + exam.id;
+    navigator.clipboard.writeText(link).then(() => alert('Đã copy link gửi cho học sinh:\n' + link));
+};
+
+$('lx').onclick = () => {
+    if(!lib.length) return alert('Danh sách đang trống.');
+    const blob = new Blob([JSON.stringify(lib)], {type: 'application/json'});
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'exams.json'; a.click();
+};
+
+$('li').onchange = async e => {
+  const f = e.target.files[0]; if(!f) return;
+  try{
+    const a = JSON.parse(await f.text());
+    let n=0;
+    a.forEach(x => {if(x && x.name && Array.isArray(x.items)){
+        lib = lib.filter(y => y.name !== x.name && (!x.id || y.id !== x.id));
+        lib.push({
+            id: x.id || ('e'+Date.now()+n), 
+            name: x.name, 
+            at: x.at||Date.now(), 
+            items: x.items, eq: x.eq||[], img: x.img||[], 
+            time: x.time||0, scale: x.scale||'other',
+            openAt: x.openAt||0, closeAt: x.closeAt||0,
+            shufGrp: !!x.shufGrp, shufQ: x.shufQ !== false, shufOpt: x.shufOpt !== false
+        });
+        n++;
+    }});
+    saveLib(); alert(`Đã nhập ${n} đề thi.`);
+  } catch(err) { alert('Lỗi: ' + err.message); }
+  e.target.value = '';
+};
+
+// ================= ĐỌC FILE WORD =================
+const MN='http://schemas.openxmlformats.org/officeDocument/2006/math',WN='http://schemas.openxmlformats.org/wordprocessingml/2006/main';
+const AC={'\u0302':'\\hat','\u0303':'\\tilde','\u0307':'\\dot','\u0308':'\\ddot','\u20D7':'\\vec','→':'\\vec','\u0305':'\\bar','\u030C':'\\check'};
+const NR={'∑':'\\sum','∏':'\\prod','∫':'\\int','∬':'\\iint','∭':'\\iiint','∮':'\\oint','⋃':'\\bigcup','⋂':'\\bigcap'};
+const FN=/^(sin|cos|tan|cot|sec|csc|arcsin|arccos|arctan|sinh|cosh|tanh|log|ln|lg|lim|exp|max|min|det|gcd|sup|inf|mod)$/;
+const SYM={'∆':'\\Delta ','µ':'\\mu ','°':'^\\circ ','℃':'^\\circ\\text{C}','Å':'\\text{\\AA}'},SYR=/[∆µ°℃Å]/g;
+
+function omml(n){
+  const K=e=>[...e.children],C=(e,x)=>e&&K(e).find(c=>c.localName===x),
+    S=e=>e?K(e).map(omml).join(''):'',A=(e,x)=>S(C(e,x)),
+    V=(e,x)=>{const c=C(e,x);return c&&c.hasAttribute('m:val')?c.getAttribute('m:val'):null},
+    E=e=>K(e).filter(x=>x.localName==='e').map(S);
+  switch(n.localName){
+    case 'r':{
+      const t=C(n,'t');if(!t)return'';
+      const s=t.textContent.replace(/([#$%&_{}])/g,'\\$1'),rp=C(n,'rPr');
+      if(C(rp,'nor'))return'\\text{'+s+'}';
+      return(V(rp,'sty')==='p'||FN.test(s))?'\\mathrm{'+s+'}':s.replace(SYR,c=>SYM[c]);
+    }
+    case 'f':return(V(C(n,'fPr'),'type')==='noBar'?'\\binom':'\\frac')+`{${A(n,'num')}}{${A(n,'den')}}`;
+    case 'sSup':return`{${A(n,'e')}}^{${A(n,'sup')}}`;
+    case 'sSub':return`{${A(n,'e')}}_{${A(n,'sub')}}`;
+    case 'sSubSup':return`{${A(n,'e')}}_{${A(n,'sub')}}^{${A(n,'sup')}}`;
+    case 'sPre':return`{}_{${A(n,'sub')}}^{${A(n,'sup')}}{${A(n,'e')}}`;
+    case 'rad':{const d=A(n,'deg');return d?`\\sqrt[${d}]{${A(n,'e')}}`:`\\sqrt{${A(n,'e')}}`}
+    case 'd':{
+      const p=C(n,'dPr'),b=V(p,'begChr'),en=V(p,'endChr'),sp=V(p,'sepChr'),dl=c=>c===''?'.':c==='{'?'\\{':c==='}'?'\\}':c;
+      return`\\left${dl(b===null?'(':b)}${E(n).join(sp===null?'|':sp)}\\right${dl(en===null?')':en)}`;
+    }
+    case 'nary':{
+      const c=V(C(n,'naryPr'),'chr')||'∫',su=A(n,'sub'),up=A(n,'sup');
+      return(NR[c]||c)+(su?`_{${su}}`:'')+(up?`^{${up}}`:'')+`{${A(n,'e')}}`;
+    }
+    case 'func':return`${A(n,'fName')}\\,${A(n,'e')}`;
+    case 'limLow':return`\\mathop{${A(n,'e')}}\\limits_{${A(n,'lim')}}`;
+    case 'limUpp':return`\\mathop{${A(n,'e')}}\\limits^{${A(n,'lim')}}`;
+    case 'acc':return`${AC[V(C(n,'accPr'),'chr')]||'\\hat'}{${A(n,'e')}}`;
+    case 'bar':return(V(C(n,'barPr'),'pos')==='bot'?'\\underline':'\\overline')+`{${A(n,'e')}}`;
+    case 'groupChr':return(V(C(n,'groupChrPr'),'pos')==='top'?'\\overbrace':'\\underbrace')+`{${A(n,'e')}}`;
+    case 'borderBox':return`\\boxed{${A(n,'e')}}`;
+    case 'm':return'\\begin{matrix}'+K(n).filter(x=>x.localName==='mr').map(r=>E(r).join('&')).join('\\\\')+'\\end{matrix}';
+    case 'eqArr':return'\\begin{aligned}'+E(n).join('\\\\')+'\\end{aligned}';
+    default:return/Pr$/.test(n.localName)?'':S(n);
+  }
+}
+
+async function pre(buf){
+  const eq=[];
+  try{
+    const z=await JSZip.loadAsync(buf),fl=z.file('word/document.xml');
+    if(fl){
+      let x=await fl.async('string');
+      if(x.includes('<m:oMath')){
+        x=x.replace(/<m:oMathParaPr>[\s\S]*?<\/m:oMathParaPr>|<\/?m:oMathPara>|<m:oMathPara [^>]*>/g,'')
+          .replace(/<m:oMath>[\s\S]*?<\/m:oMath>/g,m=>{
+            let t='';
+            try{t=omml(new DOMParser().parseFromString(`<r xmlns:m="${MN}" xmlns:w="${WN}">${m}</r>`,'application/xml').documentElement.firstElementChild).replace(/\s+/g,' ').trim()}catch(e){}
+            const u=/<w:u [^>]*w:val="(?!none)/.test(m);
+            return`<w:r>${u?'<w:rPr><w:u w:val="single"/></w:rPr>':''}<w:t xml:space="preserve">⟪${eq.push({t})-1}⟫</w:t></w:r>`;
+          });
+        z.file('word/document.xml',x);
+        buf=await z.generateAsync({type:'arraybuffer'});
+      }
+    }
+  }catch(e){}
+  return{buf,eq};
+}
+
+const prep=m=>new Promise(r=>{
+  if(/emf|wmf|tiff/i.test(m.d.slice(0,40))){m.bad=1;return r()}
+  const i=new Image();
+  i.onload=()=>{
+    let w=i.naturalWidth,h=i.naturalHeight;
+    if(m.d.length>250000&&w>900){
+      const s=900/w,c=document.createElement('canvas');c.width=w=Math.round(w*s);c.height=h=Math.round(h*s);
+      c.getContext('2d').drawImage(i,0,0,w,h);
+      const n=c.toDataURL(/png/.test(m.d.slice(0,20))?'image/png':'image/jpeg',.85);
+      if(n.length<m.d.length)m.d=n;
+    }
+    m.w=w;m.h=h;r();
+  };
+  i.onerror=()=>{m.bad=1;r()};
+  i.src=m.d;
+});
+
+function flatten(html){
+  const d=new DOMParser().parseFromString(html,'text/html'),IM=[];let T='';const F=[];
+  const add=(s,f)=>{for(let k=0;k<s.length;k++){T+=s[k];F.push(f)}};
+  (function w(n,f){
+    if(n.nodeType===3)return add(n.nodeValue.normalize('NFC').replace(/[\r\n\u00a0]+/g,' '),f);
+    if(n.nodeType!==1)return;
+    const t=n.tagName;let g=f;
+    if(t==='IMG')return add(`⟦${IM.push({d:n.getAttribute('src')||''})-1}⟧`,f);
+    if(t==='U')g|=1;else if(t==='STRONG'||t==='B')g|=2;else if(t==='EM'||t==='I')g|=4;else if(t==='SUB')g|=8;else if(t==='SUP')g|=16;
+    if(t==='BR')return add('\n',0);
+    if(t==='TD'||t==='TH')add(' ',0);
+    n.childNodes.forEach(c=>w(c,g));
+    if(/^(P|LI|TR|H[1-6]|DIV)$/.test(t))add('\n',0);
+  })(d.body,0);
+  return{T,F,IM};
+}
+
+function mk(T,F,a,b){
+  while(a<b&&/\s/.test(T[a]))a++;while(b>a&&/\s/.test(T[b-1]))b--;
+  const r=[];for(let i=a;i<b;i++){const l=r[r.length-1];if(l&&l.f===F[i])l.t+=T[i];else r.push({t:T[i],f:F[i]})}
+  return r;
+}
+
+function ratio(T,F,a,b,m=1){let u=0,n=0;for(let i=a;i<b;i++){if(/\s/.test(T[i]))continue;n++;if(F[i]&m)u++}return n?u/n:0}
+
+function blocks(T,F,a,b){
+  const out=[];let p=a;
+  T.slice(a,b).split('\n').forEach(line=>{
+    const s=p;p+=line.length+1;
+    const r=mk(T,F,s,s+line.length);
+    if(r.length)out.push({k:ratio(T,F,s,s+line.length,2)===1?'h':'p',runs:r});
+  });
+  return out;
+}
+
+function classify(items){
+  const KW=/passage|numbered blanks?|conversation|dialogue|advertisement|announcement|leaflet|notice|arrange|đoạn văn|bài đọc|hội thoại|sắp xếp/i;
+  let f=[],q=[];
+  const fin=()=>{
+      const tx=x=>x.runs.map(r=>r.t).join('');
+      const h=f.filter(x=>x.k==='h').map(tx).join(' '),p=f.filter(x=>x.k==='p').map(tx).join(' ');
+      const g = (p.length>=150||KW.test(h)||(q.length>=3&&KW.test(p.slice(0,120)))) ? 1 : 0;
+      q.forEach(x=>x.g=g);f=[];q=[]
+  };
+  items.forEach(it=>{if(it.k==='q')q.push(it);else{if(q.length)fin();f.push(it)}});
+  if(q.length)fin();
+}
+
+let parseSkipped=0;
+function parse(T,F){
+  parseSkipped=0;
+  const re=/(?:^|\n)[ \t]*(?:câu|question)\s*(\d+)\s*[.:)]?[ \t]*/gi,ms=[...T.matchAll(re)],out=[];
+  if(!ms.length)return out;
+  out.push(...blocks(T,F,0,ms[0].index));
+  ms.forEach((m,k)=>{
+    const s=m.index+m[0].length,e=k+1<ms.length?ms[k+1].index:T.length,seg=T.slice(s,e);
+    
+    // Nhận diện Trả lời ngắn
+    const saMatch = /(?:^|\n)[ \t]*ĐÁP ÁN\s*:\s*/i.exec(seg);
+    if(saMatch){
+      const a = s+saMatch.index+saMatch[0].length;
+      let ae = T.indexOf('\n', a); if(ae<0||ae>e) ae=e;   // đáp án chỉ lấy đến hết dòng
+      out.push({ k:'q', no:+m[1], qtype:'sa', stem: mk(T,F,s, s+saMatch.index), ansRuns: mk(T,F,a,ae) });
+      out.push(...blocks(T,F,ae,e));                      // giữ lại tiêu đề/đoạn văn đứng sau
+      return;
+    }
+
+    const labels = ['A','B','C','D'];
+    // Quét 4 phương án A-D. useMark=true: nhận diện ký hiệu Đ./S./Đúng/Sai (dạng câu Đúng/Sai)
+    const scan = (useMark, ci) => {
+      const P=[]; let p=0;
+      for(const L of labels){
+        const x = new RegExp('(^|\\s)'+L+'\\s*[.)]\\s*',ci?'i':'').exec(seg.slice(p));
+        if(!x) return null;
+        let adv = x[0].length, key = null;
+        if(useMark){
+          const mm = /^(?:(Đúng|Sai|đúng|sai)|(Đ|S))(?=[\s.:,;)]|$)[.:]?[ \t]*/.exec(seg.slice(p+x.index+x[0].length));
+          if(mm){ key = (mm[1]||mm[2]).charAt(0).toUpperCase()==='Đ' ? 'D' : 'S'; adv += mm[0].length; }
+        }
+        P.push({ s1: p+x.index+x[1].length, s2: p+x.index+adv, key });
+        p += x.index+adv;
+      }
+      return P;
+    };
+    // Ưu tiên nhãn A,B,C,D viết hoa; chỉ khi không có mới thử a,b,c,d viết thường (dạng a) b) c) d) của câu Đúng/Sai)
+    let P = scan(true,false), isTF = !!P && P.every(q=>q.key);
+    if(!isTF) P = scan(false,false);
+    if(!P){ P = scan(true,true); isTF = !!P && P.every(q=>q.key); if(!isTF) P = scan(false,true); }
+    if(!P){ parseSkipped++; return; }
+    let endD = s;
+
+    const o=P.map((q,i)=>{
+      let end=i<3?s+P[i+1].s1:e,a=s+q.s2;
+      while(a<end&&/\s/.test(T[a]))a++;
+      const nl=T.indexOf('\n',a);if(nl>=0&&nl<end)end=nl;
+      if(i===3)endD=end;
+      return{runs:mk(T,F,a,end),r:ratio(T,F,s+q.s1,end), tfKey: q.key};
     });
+    
+    const rt=o.map(x=>x.r),mx=Math.max(...rt);
+    let ok=-1;
+    if(!isTF) {
+        const n=rt.filter(x=>x>0).length;
+        if(n===1)ok=rt.findIndex(x=>x>0);
+        else if(n>1&&mx>=.5&&rt.filter(x=>x===mx).length===1)ok=rt.indexOf(mx);
+    }
 
-    document.getElementById('trial-cancel-btn').addEventListener('click', hideTrialModal);
-    document.getElementById('trial-password-input').addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') document.getElementById('trial-confirm-btn').click();
+    out.push({
+      k:'q', no:+m[1], qtype: isTF ? 'tf' : 'mc',
+      stem:mk(T,F,s,s+P[0].s1),
+      opts:o.map((x,i)=>({ 
+          runs: (!isTF && ok===i) ? x.runs.map(r=>({t:r.t,f:r.f&~1})) : x.runs, 
+          ok: isTF ? undefined : (i===ok),
+          tfKey: isTF ? x.tfKey : undefined
+      }))
     });
+    out.push(...blocks(T,F,endD,e));
+  });
+  classify(out);
+  return out;
+}
 
-    updateTrialUI();
-    // ---------------------------------
+$('file').onchange = async e => {
+  const f=e.target.files[0]; if(!f) return;
+  try{
+    const {buf,eq}=await pre(await f.arrayBuffer());
+    const r=await mammoth.convertToHtml({arrayBuffer:buf},{styleMap:['u => u']});
+    const {T,F,IM}=flatten(r.value),items=parse(T,F),qs=items.filter(x=>x.k==='q');
+    if(!qs.length){alert('Không nhận diện được câu hỏi nào.'); return}
+    await Promise.all(IM.map(prep));
+    
+    const ex={
+        id:'e'+Date.now(), name:f.name.replace(/\.docx$/i,''), at:Date.now(), 
+        items, eq, img:IM, time:0, scale:'other', openAt:0, closeAt:0,
+        shufGrp: false, shufQ: true, shufOpt: true
+    };
+    const old=lib.find(y=>y.name===ex.name);
+    if(old){ ex.id=old.id; ex.time=old.time||0; ex.openAt=old.openAt||0; ex.closeAt=old.closeAt||0; ex.scale=old.scale||'other'; ex.shufGrp=!!old.shufGrp; ex.shufQ=old.shufQ!==false; ex.shufOpt=old.shufOpt!==false; }
+    lib=lib.filter(y=>y.name!==ex.name); lib.push(ex); saveLib();
+    openExam(ex.id);
+    
+    const miss=qs.filter(q=> q.qtype==='mc' && !q.opts.some(o=>o.ok)).length;
+    let msg = miss ? `Đã đọc ${qs.length} câu. Có ${miss} câu chưa gạch chân đáp án.` : `Đã tải thành công ${qs.length} câu.`;
+    if(parseSkipped) msg += `\n⚠ Có ${parseSkipped} câu không tìm đủ 4 phương án A–D nên đã bị bỏ qua (kiểm tra lại file Word).`;
+    alert(msg);
+  }catch(err){alert('Lỗi đọc file: '+err.message)}
+  e.target.value='';
+};
 
-    async function shuffleAndExport() {
-        if (!checkTrialAccess()) return;
-        const btn = document.getElementById('btn-shuffle');
-        const originalText = btn.innerHTML;
-        btn.disabled = true;
-        btn.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> ĐANG TẠO MÃ ĐỀ...`;
-        
-        try {
-            const numMade = parseInt(document.getElementById('num-made').value, 10);
-            const startCode = parseInt(document.getElementById('start-code').value, 10);
-            if (!Number.isInteger(numMade) || numMade < 1) throw new Error("Số lượng mã đề không hợp lệ.");
-            if (!Number.isInteger(startCode) || startCode < 0) throw new Error("Mã đề bắt đầu không hợp lệ.");
+// ================= RENDER UTILS =================
+const TK=/⟪(\d+)⟫|⟦(\d+)⟧|\$\$([\s\S]+?)\$\$|\\\(([\s\S]+?)\\\)|\\\[([\s\S]+?)\\\]|\$([^\s$](?:[^$\n]*?[^\s$])?)\$/g;
+function kx(l,d){
+  if(!l||!l.trim())return'<span style="color:red">[công thức]</span>';
+  try{if(window.katex)return katex.renderToString(l,{throwOnError:false,displayMode:!!d,strict:'ignore'})}catch(e){}
+  return'<code>'+esc(l)+'</code>';
+}
+const imH=k=>{const m=(exam.img||[])[k];return!m?'':m.bad?'<span style="color:red">[Hình MathType lỗi]</span>':`<img class="im" src="${esc(m.d)}" alt="">`};
+function seg(t){
+  let o='',i=0;
+  t.replace(TK,(m,a,b,c,d,e,f,off)=>{
+    o+=esc(t.slice(i,off));i=off+m.length;
+    o+=a!=null?kx(((exam.eq||[])[a]||{}).t):b!=null?imH(b):kx(c||d||e||f,c||e);
+    return m;
+  });
+  return o+esc(t.slice(i));
+}
+const rich=runs=>runs.map(r=>{
+  let h=seg(r.t),f=r.f;
+  if(f&8)h=`<sub>${h}</sub>`;if(f&16)h=`<sup>${h}</sup>`;if(f&4)h=`<i>${h}</i>`;if(f&2)h=`<b>${h}</b>`;if(f&1)h=`<u>${h}</u>`;
+  return h;
+}).join('');
 
-            let opts = {
-                num_ma_de: numMade,
-                start_code: startCode,
-                insert_header: document.getElementById('insert-header').checked,
-                shuffle_parts: document.getElementById('cb-shuffle-parts').checked
-            };
-            
-            window.currentParts.forEach((part, idx) => {
-                opts[idx] = {
-                    shuffle_options: document.getElementById(`opt-opts-${idx}`).checked,
-                    shuffle_order: document.getElementById(`opt-order-${idx}`).checked,
-                    locks: (part.segments || []).map((sg, si) => { const el = document.getElementById(`opt-seg-${idx}-${si}`); return el ? el.checked : false; })
-                };
-            });
-            
-            const optsJson = JSON.stringify(opts);
-            await new Promise(r => setTimeout(r, 100)); 
-            
-            const generateShuffledFn = window.pyodide.globals.get('generate_shuffled');
-            const resultStr = generateShuffledFn(optsJson);
-            generateShuffledFn.destroy();
-            const resultFiles = JSON.parse(resultStr);
-            
-            const zip = new JSZip();
-            for (const [filename, base64] of Object.entries(resultFiles)) {
-                zip.file(filename, base64, {base64: true});
-            }
-            const content = await zip.generateAsync({type: "blob"});
-            saveAs(content, `MaDeThi_${new Date().getTime()}.zip`);
-            markUsageIfNeeded();
-            
-        } catch (err) {
-            alert("Đã xảy ra lỗi: " + err);
-        } finally {
-            btn.disabled = false;
-            btn.innerHTML = originalText;
+// Chia danh sách thành các khối. Tiếng Anh: khối mới bắt đầu ở dòng IN ĐẬM ('h') đứng sau nhóm đã có câu hỏi.
+// Môn khác: khối mới bắt đầu ở phần không phải câu hỏi đứng sau các câu hỏi.
+function splitBlocks(list, isEn) {
+    const bl = []; let c = null;
+    list.forEach((it, i) => {
+        const start = !c || (c.hasQ && (isEn ? it.k === 'h' : it.k !== 'q'));
+        if (start) { c = { items: [], hasQ: false }; bl.push(c); }
+        c.items.push({ it, i });
+        if (it.k === 'q') c.hasQ = true;
+    });
+    return bl;
+}
+
+// Trái: yêu cầu / đoạn văn (các dòng không phải câu hỏi). Phải: các câu hỏi.
+// Đổi số câu trong lời dẫn (from 1 to 6, Questions 7-11) và ô trống trong đoạn văn ((1), (2)...) theo số câu mới. Không sửa dữ liệu gốc.
+function renum(runs, map, isH) {
+    const S = runs.map(r => r.t).join(''), R = [], seen = new Set();
+    const sub = v => map[v] !== undefined ? String(map[v]) : null;
+    const add = (a, len, v) => { if (v !== null && !seen.has(a)) { seen.add(a); R.push([a, a + len, v]); } };
+    let m;
+    const rp = /\((\d+)\)/g;
+    while ((m = rp.exec(S))) add(m.index + 1, m[1].length, sub(+m[1]));
+    if (isH) {
+        const rg = /(questions?|câu|from|blanks?)(\s*)(\d+)(?:(\s*(?:to|-|–|—|đến|and)\s*)(\d+))?/gi;
+        while ((m = rg.exec(S))) {
+            let p = m.index + m[1].length + m[2].length;
+            add(p, m[3].length, sub(+m[3]));
+            if (m[5] !== undefined) { p += m[3].length + m[4].length; add(p, m[5].length, sub(+m[5])); }
         }
     }
+    if (!R.length) return runs;
+    const ch = [];
+    runs.forEach((r, ri) => { for (let k = 0; k < r.t.length; k++) ch.push({ c: r.t[k], ri }); });
+    R.sort((x, y) => y[0] - x[0]).forEach(([a, b, v]) => { const ri = ch[a].ri; ch.splice(a, b - a, ...[...v].map(c => ({ c, ri }))); });
+    const out = [];
+    ch.forEach(x => { const l = out[out.length - 1]; if (l && l.ri === x.ri) l.t += x.c; else out.push({ t: x.c, f: runs[x.ri].f, ri: x.ri }); });
+    return out.map(({ t, f }) => ({ t, f }));
+}
+
+var QL = 'Câu';
+function renderBlocks(list, isEn, qHtml) {
+    let n = 0;
+    QL = isEn ? 'Question' : 'Câu';
+    return splitBlocks(list, isEn).map(b => {
+        let map = null;
+        if (isEn) { map = {}; let k = n; b.items.forEach(({ it }) => { if (it.k === 'q') { k++; map[it.on ?? it.no ?? k] = k; } }); }
+        let L = '', R = '';
+        b.items.forEach(({ it, i }) => {
+            if (it.k === 'q') { n++; R += qHtml(it, i, n); }
+            else L += `<div class="st" style="${it.k==='h'?'font-weight:bold;color:var(--pri)':''}">${rich(map ? renum(it.runs, map, it.k === 'h') : it.runs)}</div>`;
+        });
+        return `<section class="grp${L && R ? ' two' : ''}${isEn ? ' en' : ''}">${L ? `<aside class="gl">${L}</aside>` : ''}${R ? `<div class="gr">${R}</div>` : ''}</section>`;
+    }).join('');
+}
+
+function fmtLines(runs) {
+    const S = runs.map(r => r.t).join('');
+    if (!/(^|\s)a\.\s[\s\S]*?\sb\.\s[\s\S]*?\sc\.\s/.test(S)) return runs;
+    const ch = [], hits = []; let m;
+    runs.forEach((r, ri) => { for (let k = 0; k < r.t.length; k++) ch.push({ c: r.t[k], ri }); });
+    const re = /[ \t]+(?=[a-e]\.\s)/g;
+    while ((m = re.exec(S))) hits.push([m.index, m[0].length]);
+    hits.reverse().forEach(([a, len]) => { const ri = ch[a].ri; ch.splice(a, len, { c: '\n', ri }); });
+    const out = [];
+    ch.forEach(x => { const l = out[out.length - 1]; if (l && l.ri === x.ri) l.t += x.c; else out.push({ t: x.c, f: runs[x.ri].f, ri: x.ri }); });
+    return out.map(({ t, f }) => ({ t, f }));
+}
+
+function teacherQHtml(it, i, n) {
+    let os = '';
+    if(it.qtype === 'sa') {
+        os = `<div style="padding:10px; border:1px dashed var(--bd); background:#f8fafc">Đáp án: ${rich(it.ansRuns)}</div>`;
+    } else if(it.qtype === 'tf') {
+        os = it.opts.map((o, j) => `<div class="o disabled"><span class="l">${L4[j]}</span><span>${rich(o.runs)} <b style="color:var(--ok)">(${o.tfKey==='D'?'Đúng':o.tfKey==='S'?'Sai':'?'})</b></span></div>`).join('');
+    } else {
+        os = it.opts.map((o, j) => `<div class="o disabled ${o.ok?'ok':''}"><span class="l">${L4[j]}</span><span>${rich(o.runs)}</span></div>`).join('');
+    }
+    return `<div class="q"><div class="qh">${QL} ${n}</div><div class="st">${rich(fmtLines(it.stem))}</div><div class="os">${os}</div></div>`;
+}
+
+function renderTeacherPreview() {
+    const en = $('exam-scale').value === 'english';$('q-note').textContent = en ? '(Tiếng Anh: câu hỏi trong mỗi nhóm in đậm luôn giữ nguyên thứ tự)' : '';
+    $('chk-shuf-q').disabled = en;
+    $('list-teacher').innerHTML = '<div class="note" style="margin-bottom:20px;text-align:center">Đây là chế độ xem trước cấu trúc đề (Không tương tác được). Học sinh sẽ thấy giao diện đảo đề ngẫu nhiên.</div>' + renderBlocks(cur, en, teacherQHtml);
+}
+$('exam-scale').onchange = renderTeacherPreview;
+
+// ================= THUẬT TOÁN ĐẢO ĐỀ TÙY CHỈNH =================
+const shuf = a => { for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
+function shuffleExamItems(items, examConf) {
+    const clone = JSON.parse(JSON.stringify(items));
+    let oc = 0; clone.forEach(it => { if (it.k === 'q') { oc++; it.on = it.no || oc; } });
+    const isEn = examConf.scale === 'english';
+    const blocks = splitBlocks(clone, isEn);
+
+    blocks.forEach(b => {
+        const qs = b.items.map(x => x.it).filter(x => x.k === 'q');
+        // 1. Đảo đáp án A-D
+        if (examConf.shufOpt !== false) {
+            qs.forEach(q => {
+                if (q.qtype !== 'sa') {
+                    const keep = q.opts.some(o => /tất cả|(^|\s)cả\s|all of|none of/i.test(o.runs.map(r=>r.t).join('')));
+                    if (!keep) shuf(q.opts);
+                }
+            });
+        }
+        b.out = b.items.map(x => x.it);
+        // 2. Đảo câu hỏi trong khối: KHÔNG áp dụng cho Tiếng Anh (nhóm in đậm cố định) hay nhóm đọc hiểu
+        if (!isEn && examConf.shufQ !== false && qs.length > 1 && !qs.some(q => q.g === 1)) {
+            const sq = shuf(qs.slice()); let k = 0;
+            b.out = b.out.map(x => x.k === 'q' ? sq[k++] : x);
+        }
+    });
+
+    // 3. Đảo vị trí các nhóm (nhóm không có câu hỏi, vd tiêu đề đầu/cuối đề, giữ nguyên chỗ)
+    if (examConf.shufGrp) {
+        const idx = blocks.map((b, i) => b.hasQ ? i : -1).filter(i => i >= 0);
+        const sh = shuf(idx.map(i => blocks[i]));
+        idx.forEach((i, k) => blocks[i] = sh[k]);
+    }
+    return blocks.flatMap(b => b.out);
+}
+
+// ================= LUỒNG HỌC SINH =================
+async function initStudentFlow(id) {
+    $('student-login').classList.remove('hide');
+    
+    try {
+        const t0 = Date.now();
+        const res = await fetch('exams.json?t=' + t0, { cache: 'no-store' });
+        const t1 = Date.now();
+        if (!res.ok) throw new Error('Không tìm thấy file exams.json');
+        // Lấy giờ chuẩn từ máy chủ (header Date) để đối chiếu với đồng hồ máy học sinh
+        const sd = Date.parse(res.headers.get('Date') || '');
+        if (isFinite(sd)) serverOffset = sd - (t0 + t1) / 2;
+        const data = await res.json();
+        exam = data.find(x => x.id === id);
+    } catch(e) {
+        console.warn('Lỗi tải exams.json:', e);
+    }
+
+    if(!exam) {
+        const local = JSON.parse(localStorage.getItem(LK) || '[]');
+        exam = local.find(x => x.id === id);
+    }
+
+    if(!exam) {
+        $('s-exam-name').textContent = 'LỖI: Không tìm thấy đề thi!';
+        $('s-exam-name').style.color = 'var(--bad)';$('s-name').style.display = 'none';
+        $('s-class').style.display = 'none';$('btn-start-exam').style.display = 'none';
+        
+        let warn = document.createElement('p');
+        warn.style.color = 'var(--bad)';
+        warn.style.fontWeight = 'bold';
+        warn.textContent = 'Hệ thống không tìm thấy mã đề. Vui lòng báo Giáo viên tải file exams.json lên Github!';
+        $('sf').appendChild(warn);
+        return;
+    }
+
+    $('s-exam-name').textContent = exam.name;
+    
+    // Kiểm tra hạn thời gian mở/đóng đề (cập nhật mỗi giây)
+    updateGate();
+    if(exam.openAt || exam.closeAt) gateTimer = setInterval(updateGate, 1000);
+    
+    $('sf').onsubmit = (e) => {
+        e.preventDefault();
+        if(gateState() !== 'open') { updateGate(); return; }
+        studentData.name = $('s-name').value.trim();
+        studentData.class = $('s-class').value.trim();
+        startStudentExam();
+    };
+}
+
+function gateState() {
+    const n = nowMs(), o = exam.openAt || 0, c = exam.closeAt || 0;
+    if(o && n < o) return 'wait';
+    if(c && n >= c) return 'closed';
+    return 'open';
+}
+
+function updateGate() {
+    const st = gateState(), box = $('s-schedule'), btn =$('btn-start-exam');
+    const n = nowMs(), o = exam.openAt || 0, c = exam.closeAt || 0;
+    let html = '';
+    if(o) html += `🟢 Mở đề: <b>${fmtDT(o)}</b><br>`;
+    if(c) html += `🔴 Đóng đề: <b>${fmtDT(c)}</b>`;
+    box.className = 'sch-state ' + st;
+    btn.disabled = st !== 'open';
+    
+    if(st === 'wait') {
+        html += `<span class="sch-count">⏳ Còn ${fmtCountdown(Math.ceil((o - n) / 1000))}</span>Chưa đến giờ làm bài. Em có thể nhập sẵn họ tên và lớp, nút bắt đầu sẽ tự mở khi đến giờ.`;
+    } else if(st === 'closed') {
+        if(gateTimer) { clearInterval(gateTimer); gateTimer = null; }
+        html += `<br><b>Đề thi đã đóng.</b> Em không thể làm bài nữa. Vui lòng liên hệ giáo viên nếu cần.`;
+        $('s-name').style.display = 'none';$('s-class').style.display = 'none'; btn.style.display = 'none';
+    } else if(c) {
+        html += `<br>Đề đang mở. Còn <b>${fmtCountdown(Math.ceil((c - n) / 1000))}</b> đến giờ đóng đề.`;
+    } else if(o) {
+        html += `<br>Đề đang mở, em có thể bắt đầu làm bài.`;
+    }
+    box.innerHTML = html;
+    box.classList.toggle('hide', !html);
+}
+
+function startStudentExam() {
+    if(gateTimer) { clearInterval(gateTimer); gateTimer = null; }
+    $('student-login').classList.add('hide');
+    $('app-student').classList.remove('hide');$('sh-exam-name').textContent = exam.name;
+    $('student-info-bar').textContent = `Học sinh: ${studentData.name} - Lớp: ${studentData.class}`;
+    
+    // Gọi hàm đảo đề với các tham số Tùy chọn của Giáo viên
+    cur = shuffleExamItems(exam.items, exam);
+    
+    studentData.startTime = Date.now();
+    renderStudentExam();
+    setupRotate();
+    
+    // Hẹn giờ: hết thời gian làm bài HOẶC đến giờ đóng đề (lấy mốc nào đến trước)
+    let endAt = Infinity;
+    if(exam.time && exam.time > 0) endAt = nowMs() + exam.time * 60000;
+    if(exam.closeAt && exam.closeAt > 0) {
+        if(exam.closeAt < endAt) {
+            $('student-info-bar').textContent += ` - Đề đóng lúc ${fmtDT(exam.closeAt)}`;
+        }
+        endAt = Math.min(endAt, exam.closeAt);
+    }
+    if(isFinite(endAt)) {
+        $('timer-display').classList.remove('hide');
+        // Tính theo mốc thời gian thực (giờ máy chủ) để không bị lệch khi tab bị trình duyệt làm chậm
+        const tick = () => {
+            timeLeft = Math.max(0, Math.ceil((endAt - nowMs()) / 1000));
+            updateTimerUI();
+            if(timeLeft <= 0) { clearInterval(timerInterval); autoSubmit(); }
+        };
+        tick();
+        timerInterval = setInterval(tick, 1000);
+    }
+}
+
+function updateTimerUI() {
+    const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+    const s = (timeLeft % 60).toString().padStart(2, '0');
+    $('time-text').textContent = `${m}:${s}`;
+    if(timeLeft <= 60) $('timer-display').classList.add('danger');
+}
+
+function renderStudentExam() {
+    $('list-student').innerHTML = renderBlocks(cur, exam.scale === 'english', generateStudentQuestionHTML);
+    
+    // Render bảng điều hướng bên trái
+    let html = '';
+    let qCount = 0;
+    cur.forEach((q, i) => {
+        if (q.k === 'q') {
+            qCount++;
+            html += `<div class="q-btn" id="qbtn-${i}" onclick="document.getElementById('q-${i}').scrollIntoView({behavior:'smooth'})">${qCount}</div>`;
+        }
+    });
+    $('q-grid').innerHTML = html;
+}
+
+function generateStudentQuestionHTML(q, i, n) {
+    let os = '';
+    const ans = q.studentAns;
+    
+    if(q.qtype === 'sa') {
+        os = `<input type="text" class="sa-input stu-sa" data-i="${i}" placeholder="Nhập đáp án (VD: -12.5)" value="${esc(ans||'')}">`;
+    } 
+    else if(q.qtype === 'tf') {
+        os = q.opts.map((o, j) => {
+            const st = (ans && ans[j]) ? ans[j] : null;
+            return `
+            <div class="o tf-row">
+                <div style="flex:1; display:flex; gap:12px; align-items:center;">
+                    <span class="l">${L4[j]}</span><span>${rich(o.runs)}</span>
+                </div>
+                <div style="flex:none; display:flex; gap:8px;">
+                    <button class="btn sec tf-btn stu-tf ${st==='D'?'selected':''}" data-i="${i}" data-j="${j}" data-val="D">Đúng</button>
+                    <button class="btn sec tf-btn stu-tf ${st==='S'?'selected':''}" data-i="${i}" data-j="${j}" data-val="S">Sai</button>
+                </div>
+            </div>`;
+        }).join('');
+    } 
+    else {
+        os = q.opts.map((o, j) => `
+            <div class="o stu-mc ${ans===j?'selected':''}" data-i="${i}" data-j="${j}">
+                <span class="l">${L4[j]}</span><span>${rich(o.runs)}</span>
+            </div>
+        `).join('');
+    }
+    return `<div class="q" id="q-${i}"><div class="qh">${QL} ${n}</div><div class="st">${rich(fmtLines(q.stem))}</div><div class="os">${os}</div></div>`;
+}
+
+function checkAnswered(i) {
+    const q = cur[i];
+    const btn = $('qbtn-' + i);
+    if (!btn) return;
+    let answered = false;
+    if (q.qtype === 'sa') answered = !!q.studentAns && q.studentAns.trim() !== '';
+    else if (q.qtype === 'tf') answered = q.studentAns && Object.keys(q.studentAns).length > 0;
+    else answered = q.studentAns !== undefined;
+    
+    btn.classList.toggle('done', answered);
+}
+
+$('list-student').onclick = e => {
+    const mc = e.target.closest('.stu-mc');
+    if(mc) {
+        cur[+mc.dataset.i].studentAns = +mc.dataset.j;
+        mc.parentElement.querySelectorAll('.stu-mc').forEach(x => x.classList.toggle('selected', x === mc));
+        checkAnswered(+mc.dataset.i);
+        return;
+    }
+    const tf = e.target.closest('.stu-tf');
+    if(tf) {
+        const i = +tf.dataset.i, j = +tf.dataset.j, val = tf.dataset.val;
+        if(!cur[i].studentAns) cur[i].studentAns = {};
+        cur[i].studentAns[j] = val;
+        tf.parentElement.querySelectorAll('.stu-tf').forEach(x => x.classList.toggle('selected', x === tf));
+        checkAnswered(i);
+    }
+};
+
+$('list-student').addEventListener('input', e => {
+    if(e.target.classList.contains('stu-sa')) {
+        cur[+e.target.dataset.i].studentAns = e.target.value.trim();
+        checkAnswered(+e.target.dataset.i);
+    }
+});
+
+// ================= XOAY NGANG MÀN HÌNH ĐIỆN THOẠI =================
+// Giao diện tự co giãn theo hướng máy nhờ CSS (orientation). Nút "Xoay ngang" là phần bổ sung:
+// Android/Chrome: vào toàn màn hình + khóa hướng ngang. iPhone/iPad: trình duyệt không cho khóa nên chỉ nhắc học sinh tự xoay máy.
+let rotLocked = false, rotReady = false, toastTimer = null;
+const isTouchDev = () => (window.matchMedia && matchMedia('(pointer: coarse)').matches) || navigator.maxTouchPoints > 0;
+const isPortrait = () => window.matchMedia ? matchMedia('(orientation: portrait)').matches : innerHeight >= innerWidth;
+
+function showToast(msg, ms = 5000) {
+    const t = $('toast'); t.textContent = msg; t.classList.remove('hide');
+    clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.add('hide'), ms);
+}
+
+function updateRotBtn() {
+    const b = $('btn-rotate'); if (!b) return;
+    b.classList.toggle('hide', !(isTouchDev() && (rotLocked || isPortrait())));
+    b.textContent = rotLocked ? '↩ Thoát chế độ ngang' : '🔄 Xoay ngang';
+}
+
+async function enterLandscape() {
+    const de = document.documentElement;
+    const reqFs = de.requestFullscreen || de.webkitRequestFullscreen;
+    if (!(screen.orientation && screen.orientation.lock)) {
+        showToast('Trình duyệt này (thường là iPhone/iPad) không cho tự khóa hướng. Hãy tắt "Khóa xoay dọc" trong Trung tâm điều khiển rồi xoay ngang máy, giao diện sẽ tự co giãn.', 8000);
+        return;
+    }
+    try {
+        if (reqFs && !document.fullscreenElement && !document.webkitFullscreenElement) await reqFs.call(de);
+        await screen.orientation.lock('landscape');
+        rotLocked = true;
+    } catch (e) {
+        try { if (document.fullscreenElement) await document.exitFullscreen(); } catch (_) {}
+        showToast('Không tự xoay được. Hãy bật "Xoay tự động" của điện thoại rồi xoay ngang máy.', 7000);
+    }
+    updateRotBtn();
+}
+
+async function exitLandscape() {
+    try { screen.orientation.unlock(); } catch (e) {}
+    try { if (document.fullscreenElement) await document.exitFullscreen(); } catch (e) {}
+    rotLocked = false; updateRotBtn();
+}
+
+function setupRotate() {
+    if (rotReady) return; rotReady = true;
+    $('btn-rotate').onclick = () => rotLocked ? exitLandscape() : enterLandscape();
+    const mq = window.matchMedia ? matchMedia('(orientation: portrait)') : null;
+    if (mq) { if (mq.addEventListener) mq.addEventListener('change', updateRotBtn); else mq.addListener(updateRotBtn); }
+    window.addEventListener('orientationchange', updateRotBtn);
+    document.addEventListener('fullscreenchange', () => {
+        if (!document.fullscreenElement && rotLocked) { try { screen.orientation.unlock(); } catch (e) {} rotLocked = false; }
+        updateRotBtn();
+    });
+    updateRotBtn();
+    if (isTouchDev() && isPortrait()) showToast('💡 Xoay ngang điện thoại để xem đoạn văn và câu hỏi cạnh nhau.');
+}
+
+// ================= XỬ LÝ NỘP BÀI TÍNH ĐIỂM =================
+$('btn-submit-exam').onclick = () => {
+    const un = cur.filter(q => q.k === 'q' && (
+        q.qtype === 'sa' ? !q.studentAns :
+        q.qtype === 'tf' ? (!q.studentAns || Object.keys(q.studentAns).length < 4) :
+        q.studentAns === undefined)).length;
+    if(confirm(un ? `Bạn còn ${un} câu chưa trả lời. Vẫn nộp bài?` : 'Bạn có chắc chắn muốn nộp bài?')) {
+        if(timerInterval) clearInterval(timerInterval);
+        processSubmission();
+    }
+};
+
+function autoSubmit() {
+    if(submitted) return;
+    alert('Đã hết thời gian làm bài (hoặc đã đến giờ đóng đề)! Hệ thống tự động nộp bài.');
+    processSubmission();
+}
+
+async function processSubmission() {
+    if(submitted) return;
+    submitted = true;
+    $('loading').classList.remove('hide');
+    
+    let score = 0;
+    let correctMC = 0, totalMC = 0;
+    let correctSA = 0, totalSA = 0;
+    let tfQuestions = 0;
+    
+    const isMath = exam.scale === 'math';
+
+    cur.forEach(q => {
+        if (q.k !== 'q') return;
+        
+        if (q.qtype === 'mc') {
+            totalMC++;
+            if (q.studentAns !== undefined && q.opts[q.studentAns].ok) {
+                correctMC++;
+                score += 0.25;
+            }
+        } 
+        else if (q.qtype === 'tf') {
+            tfQuestions++;
+            let matches = 0;
+            for (let j=0; j<4; j++) {
+                if (q.opts[j].tfKey && q.studentAns && q.studentAns[j] === q.opts[j].tfKey) {
+                    matches++;
+                }
+            }
+            if (matches === 1) score += 0.1;
+            else if (matches === 2) score += 0.25;
+            else if (matches === 3) score += 0.5;
+            else if (matches === 4) score += 1.0;
+        } 
+        else if (q.qtype === 'sa') {
+            totalSA++;
+            const norm = v => String(v||'').replace(/[−–—]/g,'-').replace(/,/g,'.').replace(/\s+/g,'').toLowerCase();
+            const expected = norm(q.ansRuns.map(r=>r.t).join('')), given = norm(q.studentAns);
+            const nE = Number(expected), nG = Number(given);
+            if (given !== '' && (expected === given || (expected !== '' && isFinite(nE) && isFinite(nG) && Math.abs(nE-nG) < 1e-9))) {
+                correctSA++;
+                score += (isMath ? 0.5 : 0.25);
+            }
+        }
+    });
+
+    score = Math.round(score * 100) / 100;
+
+    const payload = {
+        examId: exam.id,
+        examName: exam.name,
+        studentName: studentData.name,
+        studentClass: studentData.class,
+        timeTaken: Math.floor((Date.now() - studentData.startTime) / 1000), // giây
+        scoreStr: `${score}/10 điểm`,
+        details: JSON.stringify({ 
+            score, 
+            mc: `${correctMC}/${totalMC}`, 
+            tf_qs: tfQuestions, 
+            sa: `${correctSA}/${totalSA}` 
+        })
+    };
+
+    try {
+        if (WEBHOOK_URL !== 'YOUR_GOOGLE_SCRIPT_WEBAPP_URL_HERE') {
+            await fetch(WEBHOOK_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify(payload)
+            });
+        }
+        
+        if (rotLocked) exitLandscape();
+        $('loading-box').innerHTML = `
+            <div class="ic">🎉</div>
+            <h2 style="color:var(--ok)">Nộp bài thành công!</h2>
+            <p>Cảm ơn em đã hoàn thành bài thi.</p>
+            <div class="score-result">
+                <div style="font-size:24px; font-weight:900; color:var(--pri); text-align:center; margin-bottom:12px;">ĐIỂM: ${score}/10</div>
+                <div style="font-size:14px; color:var(--tx)">
+                    • Trắc nghiệm (0.25đ/câu): Đúng ${correctMC}/${totalMC} câu<br>
+                    • Đúng/Sai (Điểm lũy tiến): Đã làm ${tfQuestions} câu<br>
+                    • Trả lời ngắn (${isMath?'0.5đ':'0.25đ'}/câu): Đúng ${correctSA}/${totalSA} câu
+                </div>
+            </div>
+            <button class="btn" style="margin-top:16px" onclick="reviewExam()">Xem lại bài làm</button>
+        `;
+    } catch(err) {
+        console.error(err);
+        alert('Có lỗi mạng khi nộp bài. Vui lòng chụp màn hình báo cho giáo viên.');
+        $('loading').classList.add('hide');
+        submitted = false;
+    }
+}
+
+window.reviewExam = function() {
+    $('loading').classList.add('hide'); // Ẩn màn hình kết quả
+    $('btn-submit-exam').classList.add('hide'); // Ẩn nút nộp bài
+    
+    const isMath = exam.scale === 'math';
+    
+    // Đánh giá từng câu để đổi màu nút ở bảng bên trái
+    cur.forEach((q, i) => {
+        if(q.k !== 'q') return;
+        const btn = $('qbtn-' + i);
+        let isCorrect = false;
+        let isAttempted = false;
+        
+        if (q.qtype === 'mc') {
+            isAttempted = q.studentAns !== undefined;
+            isCorrect = isAttempted && q.opts[q.studentAns].ok;
+        } else if (q.qtype === 'tf') {
+            isAttempted = q.studentAns && Object.keys(q.studentAns).length > 0;
+            let matches = 0;
+            for (let j=0; j<4; j++) {
+                if (q.opts[j].tfKey && q.studentAns && q.studentAns[j] === q.opts[j].tfKey) {
+                    matches++;
+                }
+            }
+            isCorrect = (matches === 4); // Yêu cầu đúng cả 4 ý để báo xanh, nếu không thì đỏ
+        } else if (q.qtype === 'sa') {
+            isAttempted = !!q.studentAns;
+            const norm = v => String(v||'').replace(/[−–—]/g,'-').replace(/,/g,'.').replace(/\s+/g,'').toLowerCase();
+            const expected = norm(q.ansRuns.map(r=>r.t).join('')), given = norm(q.studentAns);
+            const nE = Number(expected), nG = Number(given);
+            isCorrect = given !== '' && (expected === given || (expected !== '' && isFinite(nE) && isFinite(nG) && Math.abs(nE-nG) < 1e-9));
+        }
+        
+        if (btn) {
+            btn.className = 'q-btn ' + (!isAttempted ? '' : (isCorrect ? 'right' : 'wrong'));
+        }
+    });
+};
 </script>
 </body>
 </html>
